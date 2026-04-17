@@ -1,6 +1,6 @@
 ---
 name: agent-ping-pong
-version: 1.9.0
+version: 1.9.1
 description: "Your OpenClaw is the brain. Codex is the hands. The clipboard is the protocol."
 homepage: https://github.com/highnoonoffice/agent-ping-pong
 source: https://github.com/highnoonoffice/agent-ping-pong
@@ -27,6 +27,12 @@ That's the whole design. Two agents. One clipboard. You decide when to send.
 **The block is the unit.** Every agent-to-agent payload lives inside a single block — one copy action, one paste. Agents can add human-readable context above or below the block. That prose is for you. The block is for the other agent. Never mix them.
 
 Both agents must hold this standard. If either agent starts responding in prose instead of blocks, the ping pong breaks down. The block format is not optional — it's the protocol.
+
+**Every block must request a block in return.** The last line of every `[AGENT_HANDOFF]` block — before the closing tag — must be:
+
+    Reply with a single [AGENT_HANDOFF] block. No prose outside the block.
+
+This applies to both agents. OpenClaw includes it in every spec and review block. Codex includes it in every delivery and acknowledgment block. If either agent drops it, the human adds it before relaying. The protocol is only as strong as both ends enforcing it.
 
 **The `[AGENT_HANDOFF]` schema:**
 
