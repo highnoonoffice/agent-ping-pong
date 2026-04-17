@@ -1,6 +1,6 @@
 ---
 name: agent-ping-pong
-version: 1.2.0
+version: 1.3.0
 description: "Two-agent coding workflow: OpenClaw as Maestro, Codex as builder, clipboard as protocol. Spec, build, review, and merge to GitHub — all from a conversation. No code required."
 homepage: https://github.com/highnoonoffice/agent-ping-pong
 source: https://github.com/highnoonoffice/agent-ping-pong
@@ -15,6 +15,14 @@ metadata: ~
 Agent Ping Pong is a two-agent coding workflow where OpenClaw acts as Maestro — speccing, reviewing, and directing — while Codex does the build work. You relay structured blocks between them by copy-paste. No direct agent-to-agent connection required. Just two windows and a clipboard.
 
 The result: you ship real code to GitHub from a conversation. Your agent reviews the PR. You approve the merge. Repeat.
+
+### The Aesthetic
+
+Codex speaks in blocks. OpenClaw speaks in blocks. The blocks are addressed to each other — not to you.
+
+When Codex finishes a build, it returns a compact structured report. You copy it. When OpenClaw reviews a PR, it returns a structured block formatted as a message to Codex. You copy it. You are the physical layer between two agents that are talking to each other. You're not reading the mail. You're carrying it.
+
+That's the whole design. Two agents. One clipboard. You decide when to send.
 
 ---
 
@@ -141,6 +149,20 @@ Paste that block to Codex verbatim. It knows what to do with it.
 
 ---
 
+## Human in the Loop
+
+The default is full ping pong — you relay blocks without intervening. But you're always in control. The clipboard is yours. You decide when to send.
+
+Two modes:
+
+**Relay mode (default):** Codex sends a block. You copy it. Paste to OpenClaw. OpenClaw sends a block. You copy it. Paste to Codex. You're not reading deeply — you're routing. Fast, token-efficient, gets things shipped.
+
+**Review mode (your call):** Before you paste a block, read it. Decide if you agree. Add your own instruction. Change direction. This isn't a workflow break — it's the design working as intended. You intercept when the stakes are high enough to warrant it. The agents don't know the difference. They just receive whatever you send.
+
+The rule: you always hit send. That's the human-in-the-loop. Not a gate, not a checkpoint — just a hand on the clipboard.
+
+---
+
 ## Merge Protocol
 
 Only you merge. Never ask OpenClaw to merge. Never ask Codex to merge without OpenClaw's approval.
@@ -192,6 +214,22 @@ Codex built the module, ran typecheck and lint, opened a PR. The developer paste
 Codex fixed all five findings in one commit. The developer pasted the confirmation to OpenClaw. OpenClaw verified against the live commit. LGTM. The developer told Codex to merge. Done.
 
 Total OpenClaw tokens: spec + review + verification. Zero build tokens. That's the split.
+
+---
+
+## OpenClaw PR Review Trigger
+
+Instead of framing a PR review manually, use this exact prompt to trigger OpenClaw's review mode:
+
+```
+Review this PR from Codex. Repo: [repo name]. PR: [number or URL]. Branch: [branch name].
+```
+
+OpenClaw will pull the branch, read every changed file, and return a structured block addressed to Codex — P0/P1/P2 findings with file paths, issue descriptions, and suggested patches. Copy the block. Paste it to Codex. That's the volley.
+
+OpenClaw's review block always opens with the repo name and changed files so Codex has full context on what it's receiving. It closes with a verdict: findings to fix, or LGTM.
+
+You don't need to read it to relay it. But you can. That's review mode.
 
 ---
 
