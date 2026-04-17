@@ -1,6 +1,6 @@
 ---
 name: agent-ping-pong
-version: 1.4.0
+version: 1.5.0
 description: "Two-agent coding workflow: OpenClaw as Maestro, Codex as builder, clipboard as protocol. Spec, build, review, and merge to GitHub — all from a conversation. No code required."
 homepage: https://github.com/highnoonoffice/agent-ping-pong
 source: https://github.com/highnoonoffice/agent-ping-pong
@@ -193,6 +193,34 @@ The sequence:
 4. Done
 
 If OpenClaw sends back findings, another round of ping pong happens before merge.
+
+---
+
+## Why This Is Cheaper Than You Think
+
+Codex runs on your ChatGPT Plus subscription. Flat rate. No per-token cost. Every line of code Codex writes, every test it runs, every fix it applies — that's free.
+
+OpenClaw only touches the work that requires judgment: speccing what to build, reviewing what came back, deciding if it's good enough to ship. That's a fraction of the token spend of doing the whole thing in one agent.
+
+The split isn't a workflow optimization. It's an architecture decision. High-cost intelligence on high-value judgment. Free capacity on mechanical execution.
+
+**What this means in practice:** a full build-review-fix-merge cycle might cost you a few cents of OpenClaw tokens. The same cycle done entirely in a premium AI coding assistant costs multiples of that — and you lose the review layer entirely.
+
+---
+
+## The Trust Arc
+
+Agent Ping Pong isn't one mode. It's a progression.
+
+**Phase 1 — Eyes on everything.** Every block, you read it. You understand what Codex built. You understand what OpenClaw found. You're learning the workflow and building a baseline for what good looks like. Stay here until the pattern feels natural.
+
+**Phase 2 — Relay mode.** You've seen enough clean PRs to trust the loop. You copy blocks without reading deeply. OpenClaw reviews. Codex fixes. You approve merges. You're the conductor — you show up for the performance, not the rehearsal.
+
+**Phase 3 — Auto mode.** Early phases of a project, Codex is iterating fast, OpenClaw is reviewing consistently, nothing surprising is happening. You let it cook. You check in when a block lands. You merge when you see LGTM. The agents are doing the work. You're the human in the loop by presence, not by effort.
+
+**Phase 4 (future).** The relay disappears. Direct agent-to-agent communication, human approval only at merge. Not today — but today's version builds the trust that makes that possible.
+
+You decide which phase you're in on any given session. High-stakes build: eyes on everything. Routine iteration: auto mode. The clipboard is always yours. The agents only move when you send.
 
 ---
 
