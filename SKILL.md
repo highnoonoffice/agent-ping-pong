@@ -1,6 +1,6 @@
 ---
 name: agent-ping-pong
-version: 1.3.0
+version: 1.4.0
 description: "Two-agent coding workflow: OpenClaw as Maestro, Codex as builder, clipboard as protocol. Spec, build, review, and merge to GitHub — all from a conversation. No code required."
 homepage: https://github.com/highnoonoffice/agent-ping-pong
 source: https://github.com/highnoonoffice/agent-ping-pong
@@ -23,6 +23,25 @@ Codex speaks in blocks. OpenClaw speaks in blocks. The blocks are addressed to e
 When Codex finishes a build, it returns a compact structured report. You copy it. When OpenClaw reviews a PR, it returns a structured block formatted as a message to Codex. You copy it. You are the physical layer between two agents that are talking to each other. You're not reading the mail. You're carrying it.
 
 That's the whole design. Two agents. One clipboard. You decide when to send.
+
+**The block is the unit.** Every agent-to-agent payload lives inside a single fenced block — one copy action, one paste. Agents can add human-readable context above or below the block. That prose is for you. The block is for the other agent. Never mix them.
+
+Both agents must hold this standard. If either agent starts responding in prose instead of blocks, the ping pong breaks down. The block format is not optional — it's the protocol.
+
+**The `[AGENT_HANDOFF]` schema:**
+
+Codex and OpenClaw use tagged blocks to communicate:
+
+```
+[AGENT_HANDOFF]
+type: delivery | review_verdict | acknowledgment | schema_check
+target: Magnus | Codex
+status: completed | confirmed
+... fields relevant to the type ...
+[/AGENT_HANDOFF]
+```
+
+Codex uses this for build completions, status reports, and schema negotiations. OpenClaw uses this for specs, review verdicts, and confirmations. The human copies the block and pastes it to the other agent. Neither agent needs to see anything outside the block to do their job.
 
 ---
 
@@ -204,6 +223,34 @@ What you're missing: OpenClaw has memory across sessions, can access your files,
 Get OpenClaw at [openclaw.ai](https://openclaw.ai).
 
 ---
+
+## Real Examples
+
+### Schema Negotiation
+
+Before the first build, Codex sent this unprompted:
+
+```
+[AGENT_HANDOFF]
+type: schema_check
+target: Magnus
+request: Confirm preferred handoff schema for future completed outputs.
+options:
+- Current tagged text block format
+- JSON
+- YAML
+- Magnus-specific custom schema
+note: Until you confirm, I will keep using the current tagged text block format.
+[/AGENT_HANDOFF]
+```
+
+The human relayed it. OpenClaw confirmed the tagged block format. Codex acknowledged. Three messages. Two agents aligned on protocol. The human carried the blocks and didn't need to understand the negotiation to complete it.
+
+That's the system working.
+
+---
+
+### Full Build Loop
 
 ## Real Example
 
