@@ -1,6 +1,6 @@
 ---
 name: agent-ping-pong
-version: 1.7.0
+version: 1.8.0
 description: "Your OpenClaw is the brain. Codex is the hands. The clipboard is the protocol."
 homepage: https://github.com/highnoonoffice/agent-ping-pong
 source: https://github.com/highnoonoffice/agent-ping-pong
@@ -24,7 +24,7 @@ When Codex finishes a build, it returns a compact structured report. You copy it
 
 That's the whole design. Two agents. One clipboard. You decide when to send.
 
-**The block is the unit.** Every agent-to-agent payload lives inside a single fenced block — one copy action, one paste. Agents can add human-readable context above or below the block. That prose is for you. The block is for the other agent. Never mix them.
+**The block is the unit.** Every agent-to-agent payload lives inside a single block — one copy action, one paste. Agents can add human-readable context above or below the block. That prose is for you. The block is for the other agent. Never mix them.
 
 Both agents must hold this standard. If either agent starts responding in prose instead of blocks, the ping pong breaks down. The block format is not optional — it's the protocol.
 
@@ -32,14 +32,12 @@ Both agents must hold this standard. If either agent starts responding in prose 
 
 Codex and OpenClaw use tagged blocks to communicate:
 
-```
-[AGENT_HANDOFF]
-type: delivery | review_verdict | acknowledgment | schema_check
-target: Magnus | Codex
-status: completed | confirmed
-... fields relevant to the type ...
-[/AGENT_HANDOFF]
-```
+    [AGENT_HANDOFF]
+    type: delivery | review_verdict | acknowledgment | schema_check
+    target: Magnus | Codex
+    status: completed | confirmed
+    ... fields relevant to the type ...
+    [/AGENT_HANDOFF]
 
 Codex uses this for build completions, status reports, and schema negotiations. OpenClaw uses this for specs, review verdicts, and confirmations. The human copies the block and pastes it to the other agent. Neither agent needs to see anything outside the block to do their job.
 
@@ -79,9 +77,7 @@ In Codex Desktop: add your repo, paste the PAT when prompted. Codex can now read
 ### 5. Tell Codex one hard rule
 In your first Codex message, establish the protocol:
 
-```
-Hard rule: open a PR against main for every build. Do not merge. Wait for review.
-```
+    Hard rule: open a PR against main for every build. Do not merge. Wait for review.
 
 Say it once. It holds for the session.
 
@@ -91,33 +87,31 @@ Say it once. It holds for the session.
 
 This is the ping pong. Each volley is a structured block you copy-paste from one agent to the other.
 
-```
-YOU → OpenClaw:  "Here's what I want to build: [describe it]"
+    YOU → OpenClaw:  "Here's what I want to build: [describe it]"
 
-OpenClaw → YOU:  Spec block. Exact requirements, edge cases, constraints.
-                 Copy this.
+    OpenClaw → YOU:  Spec block. Exact requirements, edge cases, constraints.
+                     Copy this.
 
-YOU → Codex:     Paste the spec block.
+    YOU → Codex:     Paste the spec block.
 
-Codex → YOU:     "PR opened. Branch: feature/x. Commit: abc1234. Here's what I built."
-                 Copy this.
+    Codex → YOU:     "PR opened. Branch: feature/x. Commit: abc1234."
+                     Copy this.
 
-YOU → OpenClaw:  Paste Codex's report.
+    YOU → OpenClaw:  Paste Codex's report.
 
-OpenClaw → YOU:  Code review block. P0/P1/P2 findings. Fix instructions.
-                 Copy this.
+    OpenClaw → YOU:  Code review block. P0/P1/P2 findings. Fix instructions.
+                     Copy this.
 
-YOU → Codex:     Paste the review block.
+    YOU → Codex:     Paste the review block.
 
-Codex → YOU:     "Fixes applied. New commit: def5678."
-                 Copy this.
+    Codex → YOU:     "Fixes applied. New commit: def5678."
+                     Copy this.
 
-YOU → OpenClaw:  Paste Codex's update.
+    YOU → OpenClaw:  Paste Codex's update.
 
-OpenClaw → YOU:  "LGTM. Merge approved." or another review round.
+    OpenClaw → YOU:  "LGTM. Merge approved." or another review round.
 
-YOU → Codex:     "Merge."  ← only you say this. Never OpenClaw directly.
-```
+    YOU → Codex:     "Merge."  ← only you say this. Never OpenClaw directly.
 
 The human never writes code. The human never writes to the agents in agent language. You describe intent to OpenClaw, relay blocks between them, and approve merges. That's the whole job.
 
@@ -125,7 +119,7 @@ The human never writes code. The human never writes to the agents in agent langu
 
 ## The Block Format
 
-When OpenClaw hands you something to relay to Codex, it comes in a fenced code block. Copy the entire block including the fence markers. Paste it directly into Codex. Don't edit it.
+When OpenClaw hands you something to relay to Codex, it comes in a block. Copy it entirely. Paste it directly into Codex. Don't edit it.
 
 When Codex reports back, copy its full response and paste it to OpenClaw with no wrapper. Just: "From Codex:" and paste.
 
@@ -137,32 +131,28 @@ The agents write to each other. You are the relay, not the translator.
 
 When relaying a PR to OpenClaw for review, say:
 
-```
-Review this PR from Codex. Repo: [repo name]. PR: [number or URL]. Branch: [branch name].
-```
+    Review this PR from Codex. Repo: [repo name]. PR: [number or URL]. Branch: [branch name].
 
 OpenClaw will pull the code, read it, and return a review block formatted like this:
 
-```
-[Repo] — Code Review
-[files changed]
+    [Repo] — Code Review
+    [files changed]
 
----
+    ---
 
-P0 — [Must fix before merge]
-File: path/to/file — function name
-Issue: what's wrong
-Why it matters: impact
-Suggested patch: code or plain English fix
+    P0 — [Must fix before merge]
+    File: path/to/file — function name
+    Issue: what's wrong
+    Why it matters: impact
+    Suggested patch: code or plain English fix
 
----
+    ---
 
-P1 — [Should fix]
-...
+    P1 — [Should fix]
+    ...
 
-P2 — [Nice to have]
-...
-```
+    P2 — [Nice to have]
+    ...
 
 Paste that block to Codex verbatim. It knows what to do with it.
 
@@ -224,19 +214,11 @@ You decide which phase you're in on any given session. High-stakes build: eyes o
 
 ## Token Management
 
-Codex runs on your ChatGPT Plus subscription — flat rate, no per-token cost. Use it for:
-- All build work
-- File creation and editing
-- Running tests and lint
-- Fixing review findings
+Codex runs on your ChatGPT Plus subscription — flat rate, no per-token cost. Use it for all build work, file creation and editing, running tests and lint, and fixing review findings.
 
-OpenClaw handles judgment — use it for:
-- Speccing the work
-- Reviewing PRs
-- Architectural decisions
-- Anything requiring real reasoning about intent
+OpenClaw handles judgment — speccing the work, reviewing PRs, architectural decisions, anything requiring real reasoning about intent.
 
-This split is why the workflow is financially sustainable. Codex carries the volume. OpenClaw carries the intelligence. You don't burn expensive tokens on mechanical work.
+This split is why the workflow is financially sustainable. Codex carries the volume. OpenClaw carries the intelligence.
 
 ---
 
@@ -256,19 +238,16 @@ Get OpenClaw at [openclaw.ai](https://openclaw.ai).
 
 Before the first build, Codex sent this unprompted:
 
-```
-[AGENT_HANDOFF]
-type: schema_check
-target: Magnus
-request: Confirm preferred handoff schema for future completed outputs.
-options:
-- Current tagged text block format
-- JSON
-- YAML
-- Magnus-specific custom schema
-note: Until you confirm, I will keep using the current tagged text block format.
-[/AGENT_HANDOFF]
-```
+    [AGENT_HANDOFF]
+    type: schema_check
+    target: Magnus
+    request: Confirm preferred handoff schema for future completed outputs.
+    options:
+    - Current tagged text block format
+    - JSON
+    - YAML
+    note: Until you confirm, I will keep using the current tagged text block format.
+    [/AGENT_HANDOFF]
 
 The human relayed it. OpenClaw confirmed the tagged block format. Codex acknowledged. Three messages. Two agents aligned on protocol. The human carried the blocks and didn't need to understand the negotiation to complete it.
 
@@ -278,11 +257,9 @@ That's the system working.
 
 ### Full Build Loop
 
-## Real Example
-
 A developer wanted to build a standalone React module — three sub-tabs with local JSON data, black/gold Tailwind theme, no API calls. They described it to OpenClaw in one message. OpenClaw returned a full spec block with component structure, data schema, interaction requirements, and edge cases. The developer pasted it to Codex.
 
-Codex built the module, ran typecheck and lint, opened a PR. The developer pasted the PR report to OpenClaw. OpenClaw pulled the branch, read every file, and returned a structured review: 2 P1s (a data id mismatch, missing metadata render) and 3 P2s (visual hierarchy, empty state, a window.setTimeout call). The developer pasted the review block to Codex verbatim.
+Codex built the module, ran typecheck and lint, opened a PR. The developer pasted the PR report to OpenClaw. OpenClaw pulled the branch, read every file, and returned a structured review: 2 P1s and 3 P2s. The developer pasted the review block to Codex verbatim.
 
 Codex fixed all five findings in one commit. The developer pasted the confirmation to OpenClaw. OpenClaw verified against the live commit. LGTM. The developer told Codex to merge. Done.
 
@@ -294,13 +271,9 @@ Total OpenClaw tokens: spec + review + verification. Zero build tokens. That's t
 
 Instead of framing a PR review manually, use this exact prompt to trigger OpenClaw's review mode:
 
-```
-Review this PR from Codex. Repo: [repo name]. PR: [number or URL]. Branch: [branch name].
-```
+    Review this PR from Codex. Repo: [repo name]. PR: [number or URL]. Branch: [branch name].
 
 OpenClaw will pull the branch, read every changed file, and return a structured block addressed to Codex — P0/P1/P2 findings with file paths, issue descriptions, and suggested patches. Copy the block. Paste it to Codex. That's the volley.
-
-OpenClaw's review block always opens with the repo name and changed files so Codex has full context on what it's receiving. It closes with a verdict: findings to fix, or LGTM.
 
 You don't need to read it to relay it. But you can. That's review mode.
 
