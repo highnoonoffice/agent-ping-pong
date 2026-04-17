@@ -1,6 +1,6 @@
 ---
 name: agent-ping-pong
-version: 1.8.0
+version: 1.9.0
 description: "Your OpenClaw is the brain. Codex is the hands. The clipboard is the protocol."
 homepage: https://github.com/highnoonoffice/agent-ping-pong
 source: https://github.com/highnoonoffice/agent-ping-pong
@@ -32,12 +32,14 @@ Both agents must hold this standard. If either agent starts responding in prose 
 
 Codex and OpenClaw use tagged blocks to communicate:
 
-    [AGENT_HANDOFF]
-    type: delivery | review_verdict | acknowledgment | schema_check
-    target: Magnus | Codex
-    status: completed | confirmed
-    ... fields relevant to the type ...
-    [/AGENT_HANDOFF]
+```
+[AGENT_HANDOFF]
+type: delivery | review_verdict | acknowledgment | schema_check
+target: Magnus | Codex
+status: completed | confirmed
+... fields relevant to the type ...
+[/AGENT_HANDOFF]
+```
 
 Codex uses this for build completions, status reports, and schema negotiations. OpenClaw uses this for specs, review verdicts, and confirmations. The human copies the block and pastes it to the other agent. Neither agent needs to see anything outside the block to do their job.
 
@@ -49,7 +51,9 @@ Codex uses this for build completions, status reports, and schema negotiations. 
 - **Codex Desktop** — free with ChatGPT Plus. Does the build. Opens PRs. Never merges without approval.
 - **GitHub account** — free. Source of truth. Where the code lives.
 - **Vercel account** — free tier. Deploy when something's ready to go public.
-- **A repo scoped PAT token** — GitHub Personal Access Token with access to one repo only. This is how Codex touches your GitHub without having the keys to everything.
+- **One sandbox repo for Codex** — `your-username/codex-repo`. Codex lives here permanently. One PAT. Every build goes here first.
+- **One fine-grained PAT for Codex** — scoped to `codex-repo` only. You create this once and never touch it again.
+- **One broader PAT for OpenClaw** — used to port approved work from the sandbox to target repos. More on this below.
 
 ---
 
@@ -58,23 +62,36 @@ Codex uses this for build completions, status reports, and schema negotiations. 
 ### 1. Install Codex Desktop
 Download from [chatgpt.com](https://chatgpt.com) — Codex is available under the Tools menu with a ChatGPT Plus subscription. Install, sign in.
 
-### 2. Create a GitHub repo for your project
-Free account at github.com. One repo per project. Keep it focused.
+### 2. Create the Codex sandbox repo
+Go to github.com/new. Name it `codex-repo`. Make it private. No template, no README — Codex will initialize it.
 
-### 3. Generate a scoped PAT token
+This is Codex's permanent home. Every project Codex touches goes here first, regardless of where it ends up. You never create another repo for Codex.
+
+### 3. Create a fine-grained PAT for Codex
 In GitHub: Settings → Developer Settings → Personal Access Tokens → Fine-grained tokens.
 
-Scope it to **one repo only**. Permissions needed:
+Scope it to **codex-repo only**. Permissions needed:
 - Contents: Read & Write
 - Pull Requests: Read & Write
 - Metadata: Read
 
-This is the key insight: Codex only gets access to what you give it. Your other repos are untouched.
+This is the key insight: Codex only gets access to what you give it. `codex-repo` is the sandbox. Your other repos are untouched. You set this token once and never change it.
 
-### 4. Connect Codex to your repo
-In Codex Desktop: add your repo, paste the PAT when prompted. Codex can now read your code and open PRs against it.
+### 4. Create a classic PAT for OpenClaw
+In GitHub: Settings → Developer Settings → Personal Access Tokens → Classic tokens.
 
-### 5. Tell Codex one hard rule
+Scope: `repo` (full). This is what OpenClaw uses to read PRs in `codex-repo` and port approved code to target repos.
+
+Two PATs. Two jobs. One never changes. The other gives OpenClaw the range it needs.
+
+**What OpenClaw can do with this PAT:** push code, read PRs, create branches, commit files, open PRs on target repos.
+
+**What neither agent can do:** create new GitHub repos. That one manual step is always yours. Takes 20 seconds at github.com/new.
+
+### 5. Connect Codex to codex-repo
+In Codex Desktop: add `codex-repo`, paste the fine-grained PAT when prompted. Codex is now wired. This never changes regardless of what you're building.
+
+### 6. Tell Codex one hard rule
 In your first Codex message, establish the protocol:
 
     Hard rule: open a PR against main for every build. Do not merge. Wait for review.
@@ -87,31 +104,33 @@ Say it once. It holds for the session.
 
 This is the ping pong. Each volley is a structured block you copy-paste from one agent to the other.
 
-    YOU → OpenClaw:  "Here's what I want to build: [describe it]"
+```
+YOU → OpenClaw:  "Here's what I want to build: [describe it]"
 
-    OpenClaw → YOU:  Spec block. Exact requirements, edge cases, constraints.
-                     Copy this.
+OpenClaw → YOU:  Spec block. Exact requirements, edge cases, constraints.
+                 Copy this.
 
-    YOU → Codex:     Paste the spec block.
+YOU → Codex:     Paste the spec block.
 
-    Codex → YOU:     "PR opened. Branch: feature/x. Commit: abc1234."
-                     Copy this.
+Codex → YOU:     "PR opened. Branch: feature/x. Commit: abc1234."
+                 Copy this.
 
-    YOU → OpenClaw:  Paste Codex's report.
+YOU → OpenClaw:  Paste Codex's report.
 
-    OpenClaw → YOU:  Code review block. P0/P1/P2 findings. Fix instructions.
-                     Copy this.
+OpenClaw → YOU:  Code review block. P0/P1/P2 findings. Fix instructions.
+                 Copy this.
 
-    YOU → Codex:     Paste the review block.
+YOU → Codex:     Paste the review block.
 
-    Codex → YOU:     "Fixes applied. New commit: def5678."
-                     Copy this.
+Codex → YOU:     "Fixes applied. New commit: def5678."
+                 Copy this.
 
-    YOU → OpenClaw:  Paste Codex's update.
+YOU → OpenClaw:  Paste Codex's update.
 
-    OpenClaw → YOU:  "LGTM. Merge approved." or another review round.
+OpenClaw → YOU:  "LGTM. Merge approved." or another review round.
 
-    YOU → Codex:     "Merge."  ← only you say this. Never OpenClaw directly.
+YOU → Codex:     "Merge."  ← only you say this. Never OpenClaw directly.
+```
 
 The human never writes code. The human never writes to the agents in agent language. You describe intent to OpenClaw, relay blocks between them, and approve merges. That's the whole job.
 
@@ -131,11 +150,14 @@ The agents write to each other. You are the relay, not the translator.
 
 When relaying a PR to OpenClaw for review, say:
 
-    Review this PR from Codex. Repo: [repo name]. PR: [number or URL]. Branch: [branch name].
+```
+Review this PR from Codex. Repo: [repo name]. PR: [number or URL]. Branch: [branch name].
+```
 
 OpenClaw will pull the code, read it, and return a review block formatted like this:
 
-    [Repo] — Code Review
+```
+[Repo] — Code Review
     [files changed]
 
     ---
@@ -151,8 +173,9 @@ OpenClaw will pull the code, read it, and return a review block formatted like t
     P1 — [Should fix]
     ...
 
-    P2 — [Nice to have]
-    ...
+P2 — [Nice to have]
+...
+```
 
 Paste that block to Codex verbatim. It knows what to do with it.
 
@@ -183,6 +206,29 @@ The sequence:
 4. Done
 
 If OpenClaw sends back findings, another round of ping pong happens before merge.
+
+---
+
+## The Sandbox Pattern — How Projects Actually Ship
+
+Codex builds everything in `codex-repo`. That's the sandbox. OpenClaw reviews the PR there. When a build is approved, OpenClaw ports the clean code to the target repo — the public-facing project repo you created manually.
+
+The flow for any new project:
+
+    1. You create the target repo on GitHub (e.g. your-username/my-project)
+    2. You describe what you want to OpenClaw
+    3. OpenClaw writes the spec, sends it to Codex via you
+    4. Codex builds in codex-repo, opens a PR
+    5. You relay the PR to OpenClaw for review
+    6. OpenClaw reviews, sends findings back to Codex
+    7. Codex fixes, you relay, OpenClaw approves
+    8. You tell Codex to merge in codex-repo
+    9. OpenClaw ports the approved code to the target repo
+    10. Done. The target repo has clean, reviewed code. Codex never touched it directly.
+
+Codex stays in the sandbox forever. The sandbox accumulates a full history of everything ever built — searchable, auditable, contained. If Codex does something unexpected, it's in the sandbox, not in production.
+
+OpenClaw needs a fine-grained PAT per public target repo only if you want it to push there autonomously. For internal or personal projects, the classic PAT is enough. For projects you're shipping publicly and want strict least-privilege access, create a fine-grained PAT scoped to that repo and give it to OpenClaw. One PAT per public project. Codex never needs a new one.
 
 ---
 
@@ -238,16 +284,18 @@ Get OpenClaw at [openclaw.ai](https://openclaw.ai).
 
 Before the first build, Codex sent this unprompted:
 
-    [AGENT_HANDOFF]
-    type: schema_check
-    target: Magnus
-    request: Confirm preferred handoff schema for future completed outputs.
-    options:
-    - Current tagged text block format
-    - JSON
-    - YAML
-    note: Until you confirm, I will keep using the current tagged text block format.
-    [/AGENT_HANDOFF]
+```
+[AGENT_HANDOFF]
+type: schema_check
+target: Magnus
+request: Confirm preferred handoff schema for future completed outputs.
+options:
+- Current tagged text block format
+- JSON
+- YAML
+note: Until you confirm, I will keep using the current tagged text block format.
+[/AGENT_HANDOFF]
+```
 
 The human relayed it. OpenClaw confirmed the tagged block format. Codex acknowledged. Three messages. Two agents aligned on protocol. The human carried the blocks and didn't need to understand the negotiation to complete it.
 
@@ -271,7 +319,9 @@ Total OpenClaw tokens: spec + review + verification. Zero build tokens. That's t
 
 Instead of framing a PR review manually, use this exact prompt to trigger OpenClaw's review mode:
 
-    Review this PR from Codex. Repo: [repo name]. PR: [number or URL]. Branch: [branch name].
+```
+Review this PR from Codex. Repo: [repo name]. PR: [number or URL]. Branch: [branch name].
+```
 
 OpenClaw will pull the branch, read every changed file, and return a structured block addressed to Codex — P0/P1/P2 findings with file paths, issue descriptions, and suggested patches. Copy the block. Paste it to Codex. That's the volley.
 
@@ -281,7 +331,7 @@ You don't need to read it to relay it. But you can. That's review mode.
 
 ## Tips
 
-- **One repo per project.** Don't give Codex a PAT to a repo with production data or personal content.
+- **One sandbox, always.** Codex lives in `codex-repo`. Never give Codex a PAT to a production repo or anything with real data.
 - **Name your branches.** Tell Codex: "Branch name: feature/[short-description]." Keeps the PR history readable.
 - **Feature branch → PR → approve → merge.** Never push direct to main for anything non-trivial.
 - **Session context.** Start each Codex session with a one-paragraph context block: what the project is, what's already built, what this session is for. Codex doesn't have memory. Give it the brief.
