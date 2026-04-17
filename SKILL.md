@@ -1,11 +1,27 @@
 ---
 title: "Agent Ping Pong"
-version: 1.0.0
+version: 1.1.0
 created: 2026-04-16
 modified: 2026-04-16
 tags: [codex, github, workflow, agents, skill]
 status: draft
 owner: highnoonoffice
+description: "Two-agent coding workflow: OpenClaw as Maestro, Codex as builder, clipboard as protocol. Ship real code to GitHub from a conversation."
+triggers:
+  - "set up agent ping pong"
+  - "use codex with openclaw"
+  - "two agent coding workflow"
+  - "review codex pr"
+  - "ship code from telegram"
+workflows:
+  - name: "Full Ping Pong Loop"
+    steps:
+      - "Describe intent to OpenClaw"
+      - "Relay spec block to Codex"
+      - "Relay PR report back to OpenClaw"
+      - "Relay review block to Codex"
+      - "Relay fix confirmation to OpenClaw"
+      - "Approve merge on LGTM"
 ---
 
 # Agent Ping Pong
@@ -31,7 +47,7 @@ The result: you ship real code to GitHub from a conversation. Your agent reviews
 ## One-Time Setup
 
 ### 1. Install Codex Desktop
-Download from [openai.com/codex](https://openai.com/codex). Requires ChatGPT Plus subscription. Install, sign in.
+Download from [chatgpt.com](https://chatgpt.com) — Codex is available under the Tools menu with a ChatGPT Plus subscription. Install, sign in.
 
 ### 2. Create a GitHub repo for your project
 Free account at github.com. One repo per project. Keep it focused.
@@ -185,9 +201,13 @@ Get OpenClaw at [openclaw.ai](https://openclaw.ai).
 
 ## Real Example
 
-Tonight's session: Joseph described an Agents Workshop UI module. OpenClaw specced the requirements. Codex built it and opened PR #3. OpenClaw reviewed the PR, found 2 P1s and 3 P2s, wrote a structured review block. Joseph relayed it to Codex. Codex fixed all five findings and pushed a new commit. OpenClaw verified the commit against the live branch. Merge approved. Codex merged. Module now on main.
+A developer wanted to build a standalone React module — three sub-tabs with local JSON data, black/gold Tailwind theme, no API calls. They described it to OpenClaw in one message. OpenClaw returned a full spec block with component structure, data schema, interaction requirements, and edge cases. The developer pasted it to Codex.
 
-Total tokens spent by OpenClaw: judgment, spec, review. Zero build tokens. That's the split.
+Codex built the module, ran typecheck and lint, opened a PR. The developer pasted the PR report to OpenClaw. OpenClaw pulled the branch, read every file, and returned a structured review: 2 P1s (a data id mismatch, missing metadata render) and 3 P2s (visual hierarchy, empty state, a window.setTimeout call). The developer pasted the review block to Codex verbatim.
+
+Codex fixed all five findings in one commit. The developer pasted the confirmation to OpenClaw. OpenClaw verified against the live commit. LGTM. The developer told Codex to merge. Done.
+
+Total OpenClaw tokens: spec + review + verification. Zero build tokens. That's the split.
 
 ---
 
