@@ -1,7 +1,7 @@
 ---
 name: agent-ping-pong
-version: 1.6.0
-description: "Two-agent coding workflow: OpenClaw as Maestro, Codex as builder, clipboard as protocol. Spec, build, review, and merge to GitHub — all from a conversation. No code required."
+version: 1.7.0
+description: "Your OpenClaw is the brain. Codex is the hands. The clipboard is the protocol."
 homepage: https://github.com/highnoonoffice/agent-ping-pong
 source: https://github.com/highnoonoffice/agent-ping-pong
 license: MIT
