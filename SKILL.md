@@ -1,6 +1,6 @@
 ---
 name: agent-ping-pong
-version: 1.5.1
+version: 1.6.0
 description: "Two-agent coding workflow: OpenClaw as Maestro, Codex as builder, clipboard as protocol. Spec, build, review, and merge to GitHub — all from a conversation. No code required."
 homepage: https://github.com/highnoonoffice/agent-ping-pong
 source: https://github.com/highnoonoffice/agent-ping-pong
@@ -198,13 +198,11 @@ If OpenClaw sends back findings, another round of ping pong happens before merge
 
 ## Why This Is Cheaper Than You Think
 
-Codex runs on your ChatGPT Plus subscription. Flat rate. No per-token cost. Every line of code Codex writes, every test it runs, every fix it applies — that's free.
+Codex builds for free after getting a highly intelligent prompt from your premier agent.
 
-Your agent burns tokens on judgment — which is exactly what expensive intelligence should be used for. Speccing what to build. Reviewing what came back. Deciding if it's good enough to ship. That's the work that requires real reasoning. That's where the tokens go.
+OpenClaw only spends tokens on judgment — which is what you want with a highly intelligent operator.
 
-The waste isn't judgment tokens. The waste is spending judgment tokens on mechanical work that Codex can do for free. Agent Ping Pong eliminates that waste by design.
-
-**What this means in practice:** a full build-review-fix-merge cycle might cost you a few cents of OpenClaw tokens. The same cycle done entirely in a premium AI coding assistant costs multiples of that — and you lose the independent review layer entirely.
+No longer waste tokens burning a gigabrain on pawn level tasks. Learn how to play ping pong with your agents. Download this, fork it, and improve it. If you have a ChatGPT subscription — a basic $20 a month — you can do this for free with your OpenClaw.
 
 ---
 
