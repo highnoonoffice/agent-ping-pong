@@ -43,4 +43,4 @@ Read [SKILL.md](./SKILL.md) for the full setup guide, workflow loop, review form
 
 ---
 
-Built by [@highnoonoffice](https://github.com/highnoonoffice)
+[@highnoonoffice](https://github.com/highnoonoffice)

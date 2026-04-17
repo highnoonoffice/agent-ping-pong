@@ -1,27 +1,11 @@
 ---
-title: "Agent Ping Pong"
-version: 1.1.0
-created: 2026-04-16
-modified: 2026-04-16
-tags: [codex, github, workflow, agents, skill]
-status: draft
-owner: highnoonoffice
-description: "Two-agent coding workflow: OpenClaw as Maestro, Codex as builder, clipboard as protocol. Ship real code to GitHub from a conversation."
-triggers:
-  - "set up agent ping pong"
-  - "use codex with openclaw"
-  - "two agent coding workflow"
-  - "review codex pr"
-  - "ship code from telegram"
-workflows:
-  - name: "Full Ping Pong Loop"
-    steps:
-      - "Describe intent to OpenClaw"
-      - "Relay spec block to Codex"
-      - "Relay PR report back to OpenClaw"
-      - "Relay review block to Codex"
-      - "Relay fix confirmation to OpenClaw"
-      - "Approve merge on LGTM"
+name: agent-ping-pong
+version: 1.2.0
+description: "Two-agent coding workflow: OpenClaw as Maestro, Codex as builder, clipboard as protocol. Spec, build, review, and merge to GitHub — all from a conversation. No code required."
+homepage: https://github.com/highnoonoffice/agent-ping-pong
+source: https://github.com/highnoonoffice/agent-ping-pong
+license: MIT
+metadata: ~
 ---
 
 # Agent Ping Pong
