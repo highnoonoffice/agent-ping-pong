@@ -44,3 +44,7 @@ Read [SKILL.md](./SKILL.md) for the full setup guide, workflow loop, review form
 ---
 
 [@highnoonoffice](https://github.com/highnoonoffice)
+
+## Download History
+
+[![Download History](https://skill-history.com/chart/highnoonoffice/agent-ping-pong.svg)](https://skill-history.com/highnoonoffice/agent-ping-pong)
