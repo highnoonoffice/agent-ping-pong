@@ -26,7 +26,7 @@ Judgment agent → YOU:  LGTM. Merge approved.
 YOU → Build agent:     Merge.
 ```
 
-The agents write to each other. You are the relay, not the translator. The judgment agent never touches code directly. The build agent never merges without explicit human approval.
+The agents write to each other. You are the relay, not the translator. The judgment agent directs and reviews the work. The build agent never merges without explicit human approval.
 
 ---
 
@@ -39,18 +39,18 @@ The protocol has exactly two structural requirements:
 
 That's it. Nothing in the `[AGENT_HANDOFF]` schema references any specific vendor.
 
-**Judgment agents (the orchestrator role) proven or structurally compatible:**
+**Judgment-agent options:**
 - **OpenClaw** — the reference implementation for this repo
-- **Hermes Agent** (Nous Research, open-source) — model-agnostic and multi-channel by design; anyone running Hermes can adopt this protocol with zero translation
-- **Grok CLI** (open-source, connects to xAI's Grok API) — sub-agent orchestration is a native feature; this is the shape of "one Grok orchestrator, multiple build agents" already in active use
+- **Hermes Agent** (Nous Research) — an open-source, provider-agnostic agent harness that can take the judgment role
+- **Grok CLI** — a CLI-based Grok harness that can take the judgment role when configured with the protocol
 - Any harness that can hold a conversation, write a structured block, and refuse to merge without your say-so
 
-**Build agents (the hands role) proven or structurally compatible:**
+**Build-agent options:**
 - **Codex** (OpenAI) and **Claude Code** (Anthropic) — the two build agents this repo was built and tested against
-- **Grok Build / grok-code-fast-1** (xAI) — a native terminal coding agent from a third lab, same accept-spec/open-PR shape
-- **Qwen3-Coder**, **DeepSeek**, **Kimi**, and other open-weight agentic coders now shipping the same pattern (accept a task, work in a sandbox, open a PR, wait for review) as their default operating mode
+- **Grok Build / `grok-code-fast-1`** (xAI) — xAI's terminal coding agent and coding model
+- **Qwen3-Coder**, **DeepSeek**, and **Kimi** — coding-capable model families that can fill the build role through an agent harness
 
-The pattern of "spec in, PR out, human merges" isn't something this repo invented in isolation — it's what multiple labs and open-source harnesses have converged on independently. This repo just wrote the block format down and made the trust boundaries explicit (sandbox isolation, no-secrets-in-blocks, human-only merge).
+The protocol does not claim identical behavior across these tools. Each pairing still needs a harness that can honor the block format, work inside the intended repository boundary, and stop at the human merge gate.
 
 If your two agents can each hold up their end — write a block, keep it self-contained, wait for the human to hit send — this protocol works regardless of which lab built either one.
 
