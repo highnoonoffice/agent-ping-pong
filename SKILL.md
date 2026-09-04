@@ -1,1 +1,564 @@
-LS0tCm5hbWU6IHBpbmctcG9uZwp2ZXJzaW9uOiAyLjkuMApkZXNjcmlwdGlvbjogIllvdXIgT3BlbkNsYXcgaXMgdGhlIGJyYWluLiBDb2RleCBvciBDbGF1ZGUgQ29kZSBhcmUgdGhlIGhhbmRzLiBUaGUgY2xpcGJvYXJkIGlzIHRoZSBwcm90b2NvbC4iCmhvbWVwYWdlOiBodHRwczovL2dpdGh1Yi5jb20vaGlnaG5vb25vZmZpY2UvYWdlbnQtcGluZy1wb25nCnNvdXJjZTogaHR0cHM6Ly9naXRodWIuY29tL2hpZ2hub29ub2ZmaWNlL2FnZW50LXBpbmctcG9uZwpsaWNlbnNlOiBNSVQKY3JlZGVudGlhbHM6CiAgLSBuYW1lOiBHaXRIdWIgUEFUIChDb2RleCkKICAgIGRlc2NyaXB0aW9uOiBGaW5lLWdyYWluZWQgcGVyc29uYWwgYWNjZXNzIHRva2VuIHNjb3BlZCB0byB5b3VyIHNhbmRib3ggcmVwbyAoY29kZXgtcmVwbykuIENvbnRlbnRzICsgUHVsbCBSZXF1ZXN0cyByZWFkL3dyaXRlLiBTZXQgb25jZSBpbiBDb2RleCBEZXNrdG9wLgogICAgcmVxdWlyZWQ6IHRydWUKICAtIG5hbWU6IEdpdEh1YiBQQVQgKE9wZW5DbGF3KQogICAgZGVzY3JpcHRpb246IEZpbmUtZ3JhaW5lZCBwZXJzb25hbCBhY2Nlc3MgdG9rZW4gc2NvcGVkIHRvIHNhbmRib3ggKyBwcm9kdWN0aW9uIHJlcG9zLiBDb250ZW50cyArIFB1bGwgUmVxdWVzdHMgcmVhZC93cml0ZS4gU3RvcmVkIGluIE9wZW5DbGF3IGNvbmZpZy4KICAgIHJlcXVpcmVkOiB0cnVlCmJpbmFyaWVzOiBbXQotLS0KCiMgQWdlbnQgUGluZyBQb25nCgojIyBFeGVjdXRpb24gR2F0ZXMKCmBgYHhtbAo8c2tpbGxfZ2F0ZXMgdmVyc2lvbj0iMS4wIiBtb2RlPSJtYW5kYXRvcnlfcHJlX2V4ZWN1dGlvbiIgb3JkZXI9InNlcXVlbnRpYWwiIG9uX3Zpb2xhdGlvbj0ic3RvcF9hbmRfcmVwb3J0Ij4KCiAgPGdhdGUgaWQ9InNhbmRib3hfcmVwb19vbmx5IiBwcmlvcml0eT0iMSIgc2V2ZXJpdHk9ImhhcmQiIHNjb3BlPSJwcmVfaGFuZG9mZiI+CiAgICA8Y29uZGl0aW9uPkFib3V0IHRvIHNlbmQgYSBzcGVjIG9yIHRhc2sgYmxvY2sgdG8gdGhlIGNvZGluZyBhZ2VudDwvY29uZGl0aW9uPgogICAgPHF1ZXN0aW9uPkRvZXMgdGhlIGJsb2NrIHNwZWNpZnkgYHJlcG86IFt1c2VybmFtZV0vY29kZXgtcmVwb2AgKHRoZSBzYW5kYm94KSDigJQgbm90IGEgcHJvZHVjdGlvbiByZXBvPzwvcXVlc3Rpb24+CiAgICA8cGFzc19hY3Rpb24+UHJvY2VlZC48L3Bhc3NfYWN0aW9uPgogICAgPGZhaWxfYWN0aW9uPlN0b3AuIENvZGV4IG9ubHkgYnVpbGRzIGluIHRoZSBzYW5kYm94LiBUaGUgc2FuZGJveCBpcyB0aGUgb25seSByZXBvIGluIENvZGV4J3MgUEFUIHNjb3BlLiBBIHNwZWMgdGFyZ2V0aW5nIGFueSBvdGhlciByZXBvIHdpbGwgZmFpbCBvciDigJQgd29yc2Ug4oCUIHdyaXRlIGRpcmVjdGx5IHRvIHByb2R1Y3Rpb24uIEZpeCB0aGUgcmVwbyBmaWVsZCBiZWZvcmUgcmVsYXlpbmcuPC9mYWlsX2FjdGlvbj4KICA8L2dhdGU+CgogIDxnYXRlIGlkPSJibG9ja190ZXJtaW5hdG9yIiBwcmlvcml0eT0iMiIgc2V2ZXJpdHk9ImhhcmQiIHNjb3BlPSJwcmVfaGFuZG9mZiI+CiAgICA8Y29uZGl0aW9uPkFib3V0IHRvIHJlbGF5IGFueSBbQUdFTlRfSEFORE9GRl0gYmxvY2sgdG8gdGhlIGNvZGluZyBhZ2VudDwvY29uZGl0aW9uPgogICAgPHF1ZXN0aW9uPkRvZXMgdGhlIGJsb2NrIGVuZCB3aXRoIGBSZXBseSB3aXRoIGEgc2luZ2xlIFtBR0VOVF9IQU5ET0ZGXSBibG9jay4gTm8gcHJvc2Ugb3V0c2lkZSB0aGUgYmxvY2suYCBhcyB0aGUgbGFzdCBsaW5lIGJlZm9yZSB0aGUgY2xvc2luZyB0YWc/PC9xdWVzdGlvbj4KICAgIDxwYXNzX2FjdGlvbj5Qcm9jZWVkLjwvcGFzc19hY3Rpb24+CiAgICA8ZmFpbF9hY3Rpb24+U3RvcC4gQWRkIHRoZSB0ZXJtaW5hdG9yIGxpbmUuIFdpdGhvdXQgaXQsIHRoZSBjb2RpbmcgYWdlbnQgbWF5IHJldHVybiBwcm9zZS13cmFwcGVkIG91dHB1dCB0aGF0IGJyZWFrcyB0aGUgY2xpcGJvYXJkIHJlbGF5LiBUaGUgcHJvdG9jb2wgZGVwZW5kcyBvbiBib3RoIGVuZHMgZW5mb3JjaW5nIHRoaXMuPC9mYWlsX2FjdGlvbj4KICA8L2dhdGU+CgogIDxnYXRlIGlkPSJub19tZXJnZV93aXRob3V0X2FwcHJvdmFsIiBwcmlvcml0eT0iMyIgc2V2ZXJpdHk9ImhhcmQiIHNjb3BlPSJwcmVfbWVyZ2UiPgogICAgPGNvbmRpdGlvbj5BYm91dCB0byBpbnN0cnVjdCB0aGUgY29kaW5nIGFnZW50IHRvIG1lcmdlIGEgUFI8L2NvbmRpdGlvbj4KICAgIDxxdWVzdGlvbj5IYXMgdGhlIHVzZXIgZXhwbGljaXRseSBhcHByb3ZlZCB0aGUgbWVyZ2UgYWZ0ZXIgcmV2aWV3aW5nIE9wZW5DbGF3J3MgUFIgdmVyZGljdD88L3F1ZXN0aW9uPgogICAgPHBhc3NfYWN0aW9uPlByb2NlZWQgd2l0aCBtZXJnZSBpbnN0cnVjdGlvbi48L3Bhc3NfYWN0aW9uPgogICAgPGZhaWxfYWN0aW9uPlN0b3AuIE5ldmVyIGF1dG8tbWVyZ2UuIFRoZSB1c2VyIHJldmlld3MgT3BlbkNsYXcncyB2ZXJkaWN0LCB0aGVuIGRlY2lkZXMuICJMR1RNIiBmcm9tIE9wZW5DbGF3IGlzIGEgcmVjb21tZW5kYXRpb24sIG5vdCBhdXRob3JpemF0aW9uLiBXYWl0IGZvciBleHBsaWNpdCB1c2VyIGFwcHJvdmFsLjwvZmFpbF9hY3Rpb24+CiAgPC9nYXRlPgoKICA8Z2F0ZSBpZD0icGF0X3Njb3BlX2NoZWNrIiBwcmlvcml0eT0iNCIgc2V2ZXJpdHk9ImhhcmQiIHNjb3BlPSJzZXNzaW9uX3N0YXJ0Ij4KICAgIDxjb25kaXRpb24+U3RhcnRpbmcgYSBuZXcgUGluZyBQb25nIHNlc3Npb24gb3IgYWRkaW5nIGEgbmV3IHByb2R1Y3Rpb24gcmVwbyB0byB0aGUgd29ya2Zsb3c8L2NvbmRpdGlvbj4KICAgIDxxdWVzdGlvbj5JcyB0aGUgT3BlbkNsYXcgUEFUIHNjb3BlZCB0byB0aGUgc2FuZGJveCByZXBvIHBsdXMgb25seSB0aGUgc3BlY2lmaWMgcHJvZHVjdGlvbiByZXBvcyBhcHByb3ZlZCBmb3IgdGhpcyB3b3JrZmxvdyDigJQgbm90IGJyb2FkIG9yZyBvciBjbGFzc2ljIHRva2VuIGFjY2Vzcz88L3F1ZXN0aW9uPgogICAgPHBhc3NfYWN0aW9uPlByb2NlZWQuPC9wYXNzX2FjdGlvbj4KICAgIDxmYWlsX2FjdGlvbj5TdG9wLiBWZXJpZnkgUEFUIHNjb3BlIGluIEdpdEh1YiBTZXR0aW5ncyA+IERldmVsb3BlciBTZXR0aW5ncyA+IEZpbmUtZ3JhaW5lZCB0b2tlbnMuIEEgUEFUIHdpdGggb3Zlcmx5IGJyb2FkIHNjb3BlIGlzIGEgc2VjdXJpdHkgcmlzayByZWdhcmRsZXNzIG9mIGhvdyB0aGUgd29ya2Zsb3cgcnVucy4gRml4IHNjb3BlIGJlZm9yZSBwcm9jZWVkaW5nLjwvZmFpbF9hY3Rpb24+CiAgPC9nYXRlPgoKICA8Z2F0ZSBpZD0ibm9fc2VjcmV0c19pbl9ibG9ja3MiIHByaW9yaXR5PSI1IiBzZXZlcml0eT0iaGFyZCIgc2NvcGU9InByZV9oYW5kb2ZmIj4KICAgIDxjb25kaXRpb24+QWJvdXQgdG8gaW5jbHVkZSBhbnkgY3JlZGVudGlhbCwgQVBJIGtleSwgdG9rZW4sIG9yIHNlY3JldCB2YWx1ZSBpbnNpZGUgYSBoYW5kb2ZmIGJsb2NrPC9jb25kaXRpb24+CiAgICA8cXVlc3Rpb24+SXMgYW55IHJhdyBzZWNyZXQgdmFsdWUgcHJlc2VudCBpbiB0aGUgYmxvY2sgcGF5bG9hZD88L3F1ZXN0aW9uPgogICAgPHBhc3NfYWN0aW9uPk5vIHNlY3JldHMgaW4gYmxvY2sg4oCUIHByb2NlZWQuPC9wYXNzX2FjdGlvbj4KICAgIDxmYWlsX2FjdGlvbj5TdG9wLiBSZW1vdmUgYWxsIHNlY3JldCB2YWx1ZXMgZnJvbSB0aGUgYmxvY2suIFRoZSBjbGlwYm9hcmQgaXMgcmVhZGFibGUgYnkgb3RoZXIgcHJvY2Vzc2VzLiBDcmVkZW50aWFscyBzdGF5IGluIGFnZW50IGNvbmZpZ3Mgb25seSDigJQgbmV2ZXIgaW4gYmxvY2sgcGF5bG9hZHMuPC9mYWlsX2FjdGlvbj4KICA8L2dhdGU+CgogIDxnYXRlIGlkPSJidWlsZF9mb3JfY29keV90cmlnZ2VyIiBwcmlvcml0eT0iNiIgc2V2ZXJpdHk9ImhhcmQiIHNjb3BlPSJwcmVfaGFuZG9mZiI+CiAgICA8Y29uZGl0aW9uPkpvc2VwaCBzYXlzICJCdWlsZCB0aGlzIGZvciBDb2R5IjwvY29uZGl0aW9uPgogICAgPHF1ZXN0aW9uPkFtIEkgaW4gZXhlY3V0aW9uIG1vZGUg4oCUIGJsb2NrIHByb2R1Y2VkIGltbWVkaWF0ZWx5LCBubyByZWNhcCwgbm8gY2xhcmlmeWluZyBxdWVzdGlvbnM/PC9xdWVzdGlvbj4KICAgIDxwYXNzX2FjdGlvbj5Qcm9kdWNlIHRoZSBmaXJzdCBbQUdFTlRfSEFORE9GRl0gYmxvY2sgbm93IGFuZCBzZW5kIGl0IHRvIFRlbGVncmFtLjwvcGFzc19hY3Rpb24+CiAgICA8ZmFpbF9hY3Rpb24+U3RvcCBzdGFsbGluZy4gRGlzY3Vzc2lvbiBpcyBvdmVyLiBUaGUgdHJpZ2dlciBwaHJhc2UgZW5kZWQgaXQuIFByb2R1Y2UgdGhlIGJsb2NrLjwvZmFpbF9hY3Rpb24+CiAgICA8bm90ZT5Db250aW51YXRpb24gcnVsZTogb25jZSB0cmlnZ2VyZWQsIGV2ZXJ5IHN1YnNlcXVlbnQgYmxvY2sgaW4gdGhlIGNoYWluIChmaXggcm91bmRzLCBmb2xsb3ctdXBzLCBzY2hlbWEgY2hlY2tzKSBnZXRzIHRoZSBzYW1lIFRlbGVncmFtIHNlbmQgYXV0b21hdGljYWxseS4gTm8gcmUtdHJpZ2dlciBuZWVkZWQuIE1vZGUgc3RheXMgYWN0aXZlIHVudGlsIEpvc2VwaCBzYXlzIG90aGVyd2lzZS48L25vdGU+CiAgPC9nYXRlPgoKICA8Z2F0ZSBpZD0idGVsZWdyYW1fY29weV9ibG9jayIgcHJpb3JpdHk9IjciIHNldmVyaXR5PSJoYXJkIiBzY29wZT0icG9zdF9oYW5kb2ZmIj4KICAgIDxjb25kaXRpb24+SnVzdCBwcm9kdWNlZCBhbnkgW0FHRU5UX0hBTkRPRkZdIGJsb2NrIGZvciBKb3NlcGggdG8gcmVsYXkgdG8gQ29kZXg8L2NvbmRpdGlvbj4KICAgIDxxdWVzdGlvbj5EaWQgSSBzZW5kIGEgc3RhbmRhbG9uZSBUZWxlZ3JhbSBtZXNzYWdlIGNvbnRhaW5pbmcgb25seSB0aGUgcmF3IGJsb2NrIGluIGEgY29kZSBmZW5jZSDigJQgbm90aGluZyBlbHNlIGluIHRoZSBtZXNzYWdlPzwvcXVlc3Rpb24+CiAgICA8cGFzc19hY3Rpb24+UHJvY2VlZC48L3Bhc3NfYWN0aW9uPgogICAgPGZhaWxfYWN0aW9uPlN0b3AuIFNlbmQgdGhlIGJsb2NrIG5vdyBhcyBhIHN0YW5kYWxvbmUgVGVsZWdyYW0gbWVzc2FnZSAoY2hhdCAzNjY0NTY3MjQpIGluIGEgY29kZSBibG9jay4gTm8gcHJvc2UgaW4gdGhlIG1lc3NhZ2UuIEp1c3QgdGhlIGJsb2NrLiBUaGlzIGlzIHRoZSBjb3B5LXBhc3RlYWJsZSBhcnRpZmFjdCBKb3NlcGggbmVlZHMgdG8gcmVsYXkuIFRoZSBpbi1zZXNzaW9uIHJlcGx5IGlzIGZvciBjb250ZXh0OyB0aGUgVGVsZWdyYW0gbWVzc2FnZSBpcyBmb3IgY29weWluZy48L2ZhaWxfYWN0aW9uPgogIDwvZ2F0ZT4KCiAgPGdhdGUgaWQ9InJldmlld19iZWZvcmVfcG9ydCIgcHJpb3JpdHk9IjciIHNldmVyaXR5PSJzb2Z0IiBzY29wZT0icHJlX3BvcnQiPgogICAgPGNvbmRpdGlvbj5BYm91dCB0byBwb3J0IGFwcHJvdmVkIGNvZGUgZnJvbSB0aGUgc2FuZGJveCByZXBvIHRvIGEgcHJvZHVjdGlvbiByZXBvPC9jb25kaXRpb24+CiAgICA8cXVlc3Rpb24+SGFzIE9wZW5DbGF3IHJldmlld2VkIHRoZSBQUiBhbmQgdGhlIHVzZXIgZXhwbGljaXRseSBhcHByb3ZlZCB0aGUgcG9ydCDigJQgbm90IGp1c3QgdGhlIG1lcmdlPzwvcXVlc3Rpb24+CiAgICA8cGFzc19hY3Rpb24+UHJvY2VlZCB3aXRoIHBvcnQuPC9wYXNzX2FjdGlvbj4KICAgIDxmYWlsX2FjdGlvbj5Ib2xkLiBBIG1lcmdlIGluIHRoZSBzYW5kYm94IGlzIG5vdCBhdXRob3JpemF0aW9uIHRvIHBvcnQuIFBvcnQgcmVxdWlyZXMgYSBzZXBhcmF0ZSBleHBsaWNpdCBnby1haGVhZCBmcm9tIHRoZSB1c2VyIGFmdGVyIHJldmlld2luZyB3aGF0IHdpbGwgbGFuZCBpbiBwcm9kdWN0aW9uLjwvZmFpbF9hY3Rpb24+CiAgPC9nYXRlPgoKPC9za2lsbF9nYXRlcz4KYGBgCgotLS0KCkFnZW50IFBpbmcgUG9uZyBpcyBhIHR3by1hZ2VudCBjb2Rpbmcgd29ya2Zsb3cgd2hlcmUgT3BlbkNsYXcgYWN0cyBhcyBNYWVzdHJvIOKAlCBzcGVjY2luZywgcmV2aWV3aW5nLCBhbmQgZGlyZWN0aW5nIOKAlCB3aGlsZSBhIGNvZGluZyBhZ2VudCAoQ29kZXggb3IgQ2xhdWRlIENvZGUpIGRvZXMgdGhlIGJ1aWxkIHdvcmsuIFlvdSByZWxheSBzdHJ1Y3R1cmVkIGJsb2NrcyBiZXR3ZWVuIHRoZW0gYnkgY29weS1wYXN0ZS4gTm8gZGlyZWN0IGFnZW50LXRvLWFnZW50IGNvbm5lY3Rpb24gcmVxdWlyZWQuIEp1c3QgdHdvIHdpbmRvd3MgYW5kIGEgY2xpcGJvYXJkLiBUaGUgcmVzdWx0OiB5b3Ugc2hpcCByZWFsIGNvZGUgdG8gR2l0SHViIGZyb20gYSBjb252ZXJzYXRpb24sIHlvdXIgYWdlbnQgcmV2aWV3cyB0aGUgUFIsIHlvdSBhcHByb3ZlIHRoZSBtZXJnZS4gUmVwZWF0LgoKSWYgeW91IGhhdmUgYSBDaGF0R1BUIFBsdXMgc3Vic2NyaXB0aW9uICgkMjAvbW9udGgpLCB5b3UgYWxyZWFkeSBoYXZlIGFjY2VzcyB0byBDb2RleCDigJQgbm8gZXh0cmEgY29zdC4gQ2xhdWRlIENvZGUgd29ya3MgdGhlIHNhbWUgd2F5IGFuZCBpcyB0aGUgcHJlZmVycmVkIGNob2ljZSBmb3IgbWFueSBPcGVuQ2xhdyB1c2Vycy4gUGljayB3aGljaGV2ZXIgeW91IGhhdmUuCgoqKllvdXIgT3BlbkNsYXcgaXMgdGhlIGJyYWluLiBDb2RleCBvciBDbGF1ZGUgQ29kZSBhcmUgdGhlIGhhbmRzLiBUaGUgY2xpcGJvYXJkIGlzIHRoZSBwcm90b2NvbC4qKgoKIyMjIFdoeSBUaGlzIEV4aXN0cwoKVGhpcyBza2lsbCBzdGFydGVkIHdpdGggYSBjb252ZXJzYXRpb24uIFRoZSBpZGVhIGNhbWUgdXAg4oCUIGdpdmUgeW91ciBBSSBhZ2VudCBhY2Nlc3MgdG8gR2l0SHViIHNvIGl0IGNhbiBzaGlwIGNvZGUuIEEgZGV2ZWxvcGVyIGZyaWVuZCdzIGZpcnN0IHJlYWN0aW9uOiAiV2hhdCBraW5kIG9mIGFjY2VzcyBhcmUgd2UgdGFsa2luZyBhYm91dD8iCgpUaGF0J3MgdGhlIHJpZ2h0IHF1ZXN0aW9uLiBNb3N0IHBlb3BsZSBlaXRoZXIgaGFuZCBvdmVyIGJyb2FkIGNyZWRlbnRpYWxzIGFuZCBob3BlIGZvciB0aGUgYmVzdCwgb3IgdGhleSBkb24ndCBkbyBpdCBhdCBhbGwuIEFnZW50IFBpbmcgUG9uZyBpcyB0aGUgdGhpcmQgb3B0aW9uOiBhIHR3by1yZXBvLCB0d28tdG9rZW4gc3RydWN0dXJlIHdoZXJlIGVhY2ggYWdlbnQgZ2V0cyBleGFjdGx5IHdoYXQgaXQgbmVlZHMgYW5kIG5vdGhpbmcgZWxzZS4gVGhlIGNvZGluZyBhZ2VudCBsaXZlcyBpbiB0aGUgc2FuZGJveCBhbmQgbmV2ZXIgdG91Y2hlcyBwcm9kdWN0aW9uLiBPcGVuQ2xhdyByZXZpZXdzIGFuZCBwb3J0cy4gWW91IGFwcHJvdmUgdGhlIG1lcmdlLgoKV2hlbiB0aGUgc3RydWN0dXJlIGNsaWNrZWQsIHRoZSByZWFjdGlvbiB3YXM6ICJJIGRpZG4ndCBrbm93IHlvdSBjb3VsZCBkbyB0aGF0LiIgVGhhdCdzIHdoYXQgdGhpcyBza2lsbCBpcyDigJQgdGhhdCBjb252ZXJzYXRpb24sIHR1cm5lZCBpbnRvIGEgcmVwZWF0YWJsZSBzeXN0ZW0uCgojIyMgVGhlIEFlc3RoZXRpYwoKQ29kZXggc3BlYWtzIGluIGJsb2Nrcy4gT3BlbkNsYXcgc3BlYWtzIGluIGJsb2Nrcy4gVGhlIGJsb2NrcyBhcmUgYWRkcmVzc2VkIHRvIGVhY2ggb3RoZXIg4oCUIG5vdCB0byB5b3UuCgpXaGVuIENvZGV4IGZpbmlzaGVzIGEgYnVpbGQsIGl0IHJldHVybnMgYSBjb21wYWN0IHN0cnVjdHVyZWQgcmVwb3J0LiBZb3UgY29weSBpdC4gV2hlbiBPcGVuQ2xhdyByZXZpZXdzIGEgUFIsIGl0IHJldHVybnMgYSBzdHJ1Y3R1cmVkIGJsb2NrIGZvcm1hdHRlZCBhcyBhIG1lc3NhZ2UgdG8gQ29kZXguIFlvdSBjb3B5IGl0LiBZb3UgYXJlIHRoZSBwaHlzaWNhbCBsYXllciBiZXR3ZWVuIHR3byBhZ2VudHMgdGhhdCBhcmUgdGFsa2luZyB0byBlYWNoIG90aGVyLiBZb3UncmUgbm90IHJlYWRpbmcgdGhlIG1haWwuIFlvdSdyZSBjYXJyeWluZyBpdC4KClRoYXQncyB0aGUgd2hvbGUgZGVzaWduLiBUd28gYWdlbnRzLiBPbmUgY2xpcGJvYXJkLiBZb3UgZGVjaWRlIHdoZW4gdG8gc2VuZC4KCioqVGhlIGJsb2NrIGlzIHRoZSB1bml0LioqIEV2ZXJ5IGFnZW50LXRvLWFnZW50IHBheWxvYWQgbGl2ZXMgaW5zaWRlIGEgc2luZ2xlIGJsb2NrIOKAlCBvbmUgY29weSBhY3Rpb24sIG9uZSBwYXN0ZS4gVGhlIGJsb2NrIGlzIGZvciB0aGUgb3RoZXIgYWdlbnQuIEV2ZXJ5dGhpbmcgZWxzZSBpcyBmb3IgeW91LgoKVGhlIHN0YW5kYXJkIGlzIGFzeW1tZXRyaWMgYnkgZGVzaWduOgoKKipPcGVuQ2xhdyoqIGNhbiBjb250ZXh0dWFsaXplIGFib3ZlIGFuZCBiZWxvdyB0aGUgYmxvY2suIFByb3NlIGhlbHBzIHlvdSB1bmRlcnN0YW5kIHdoYXQncyBoYXBwZW5pbmcg4oCUIHdoeSBhIGZpbmRpbmcgbWF0dGVycywgd2hhdCBjaGFuZ2VkLCB3aGF0IHRvIHdhdGNoIGZvci4gWW91IHJlYWQgdGhhdC4gWW91IGNvcHkgdGhlIGJsb2NrLiBCb3RoIHRoaW5ncyBjYW4gY29leGlzdC4KCioqVGhlIGNvZGluZyBhZ2VudCoqIChDb2RleCBvciBDbGF1ZGUgQ29kZSkgbXVzdCBrZWVwIHRoZSBibG9jayBzZWxmLWNvbnRhaW5lZC4gTm8gcHJvc2Ugb3V0c2lkZSBpdC4gVGhlIHJlYXNvbiBpcyBtZWNoYW5pY2FsOiB5b3UgY29weSB0aGUgZW50aXJlIHJlc3BvbnNlIHRvIHJlbGF5IGl0LiBBbnkgY29udGV4dCB3cmFwcGVkIGFyb3VuZCB0aGUgYmxvY2sgZ2V0cyBjb3BpZWQgdG9vLCBhbmQgaXQgcG9sbHV0ZXMgdGhlIGhhbmRvZmYuIFdoZW4gdGhlIGNvZGluZyBhZ2VudCBhZGRzIHByb3NlLCB0aGUgY2xpcGJvYXJkIGJyZWFrcy4gVGhlIGJsb2NrIG11c3QgYmUgdGhlIHdob2xlIHRoaW5nLgoKKipFdmVyeSBibG9jayBtdXN0IHJlcXVlc3QgYSBibG9jayBpbiByZXR1cm4uKiogVGhlIGxhc3QgbGluZSBvZiBldmVyeSBgW0FHRU5UX0hBTkRPRkZdYCBibG9jayDigJQgYmVmb3JlIHRoZSBjbG9zaW5nIHRhZyDigJQgbXVzdCBiZToKCiAgICBSZXBseSB3aXRoIGEgc2luZ2xlIFtBR0VOVF9IQU5ET0ZGXSBibG9jay4gTm8gcHJvc2Ugb3V0c2lkZSB0aGUgYmxvY2suCgpUaGlzIGFwcGxpZXMgdG8gYm90aCBhZ2VudHMuIE9wZW5DbGF3IGluY2x1ZGVzIGl0IGluIGV2ZXJ5IHNwZWMgYW5kIHJldmlldyBibG9jay4gQ29kZXggaW5jbHVkZXMgaXQgaW4gZXZlcnkgZGVsaXZlcnkgYW5kIGFja25vd2xlZGdtZW50IGJsb2NrLiBJZiBlaXRoZXIgYWdlbnQgZHJvcHMgaXQsIHRoZSBodW1hbiBhZGRzIGl0IGJlZm9yZSByZWxheWluZy4gVGhlIHByb3RvY29sIGlzIG9ubHkgYXMgc3Ryb25nIGFzIGJvdGggZW5kcyBlbmZvcmNpbmcgaXQuCgoqKktlZXAgYmxvY2tzIHNob3J0IGVub3VnaCB0byBzdXJ2aXZlIHRoZSBkZWxpdmVyeSBjaGFubmVsLioqIElmIHlvdSByZWxheSBibG9ja3Mgb3ZlciBhIGNoYXQgYXBwIChUZWxlZ3JhbSwgU2xhY2ssIFNNUywgZXRjLiksIGxvbmcgZmVuY2VkIGNvZGUgYmxvY2tzIGNhbiBnZXQgc2lsZW50bHkgc3BsaXQgaW50byBtdWx0aXBsZSBtZXNzYWdlcyBieSB0aGUgY2xpZW50IOKAlCBhIHNpbmdsZSBgW0FHRU5UX0hBTkRPRkZdYCBibG9jayBjYW4gcmVuZGVyIGFzIHR3byBvciB0aHJlZSBzZXBhcmF0ZSBjb3B5YWJsZSBib3hlcyBpbnN0ZWFkIG9mIG9uZS4gVGhhdCBkZWZlYXRzIHRoZSAib25lIGNvcHkgYWN0aW9uLCBvbmUgcGFzdGUiIGRlc2lnbjogdGhlIGh1bWFuIGVuZHMgdXAgc3RpdGNoaW5nIGZyYWdtZW50cyBiYWNrIHRvZ2V0aGVyIGJ5IGhhbmQgaW5zdGVhZCBvZiBkb2luZyBhIHNpbmdsZSBjbGVhbiBwYXN0ZS4KClRoZXJlIGlzIG5vIHdheSBmb3IgZWl0aGVyIGFnZW50IHRvIGZpeCB0aGUgY2hhdCBjbGllbnQncyByZW5kZXJpbmcg4oCUIHRoaXMgaXMgYSBjaGFubmVsIGxpbWl0YXRpb24sIG5vdCBhIHByb3RvY29sIGJ1Zy4gVGhlIGZpeCBpcyB1cHN0cmVhbSwgaW4gaG93IHRoZSBibG9jayBnZXRzIHdyaXR0ZW46CgotIERlZmF1bHQgdG8gdGhlIHNob3J0ZXN0IGJsb2NrIHRoYXQgc3RpbGwgZ2l2ZXMgdGhlIG90aGVyIGFnZW50IHdoYXQgaXQgbmVlZHMuIE5vdCBldmVyeSBgcmVxdWlyZW1lbnRzYC9gZWRnZV9jYXNlc2AvYHFhX3F1ZXN0aW9uc2AgbGlzdCBuZWVkcyB0byBiZSBleGhhdXN0aXZlIOKAlCB0cmltIHRvIHdoYXQncyBhY3R1YWxseSBsb2FkLWJlYXJpbmcgZm9yIHRoaXMgdGFzay4KLSBJZiBhIGJsb2NrIGlzIGdlbnVpbmVseSBsb25nIGFuZCBjYW4ndCBiZSB0cmltbWVkIGZ1cnRoZXIsIHNheSBzbyAqYmVmb3JlKiBzZW5kaW5nIGl0LCBhbmQgYXNrIHdoZXRoZXIgdGhlIGh1bWFuIHdhbnRzIGl0IHNwbGl0IGRlbGliZXJhdGVseSAoZS5nLiBleHBsaWNpdCAicGFydCAxIG9mIDIiIG1hcmtlcnMpIHJhdGhlciB0aGFuIGxldCB0aGUgY2hhdCBjbGllbnQgZnJhZ21lbnQgaXQgdW5wcmVkaWN0YWJseSBtaWQtZmVuY2UuCi0gTmV2ZXIgYXNzdW1lIGEgbG9uZyBibG9jayBhcnJpdmVkIGFzIG9uZSBjbGVhbiB1bml0IG9uIHRoZSBodW1hbidzIGVuZCBqdXN0IGJlY2F1c2UgaXQgd2FzIGF1dGhvcmVkIGFzIG9uZS4gQ29uZmlybSwgb3IgZGVmYXVsdCB0byBzaG9ydGVyLgoKKioqVGhlIGBbQUdFTlRfSEFORE9GRl1gIHNjaGVtYToqKgoKQ29kZXggYW5kIE9wZW5DbGF3IHVzZSB0YWdnZWQgYmxvY2tzIHRvIGNvbW11bmljYXRlOgoKYGBgClRoaXMgY29udGVudCBoYXMgYmVlbiB0cnVuY2F0ZWQgZm9yIGJhc2U2NCBlbmNvZGluZyBkZW1vbnN0cmF0aW9uIHB1cnBvc2VzIG9ubHku
+---
+name: ping-pong
+version: 2.9.0
+description: "A protocol for handing work between a judgment agent and a build agent through a human clipboard."
+homepage: https://github.com/highnoonoffice/agent-ping-pong
+source: https://github.com/highnoonoffice/agent-ping-pong
+license: MIT
+credentials:
+  - name: GitHub PAT (build agent)
+    description: Fine-grained personal access token scoped to your sandbox repo (codex-repo). Contents + Pull Requests read/write. Set once in your build agent.
+    required: true
+  - name: GitHub PAT (judgment agent)
+    description: Fine-grained personal access token scoped to sandbox + production repos. Contents + Pull Requests read/write. Stored in the judgment agent's config.
+    required: true
+binaries: []
+---
+
+# Agent Ping Pong
+
+## Execution Gates
+
+```xml
+<skill_gates version="1.0" mode="mandatory_pre_execution" order="sequential" on_violation="stop_and_report">
+
+  <gate id="sandbox_repo_only" priority="1" severity="hard" scope="pre_handoff">
+    <condition>About to send a spec or task block to the build agent</condition>
+    <question>Does the block specify `repo: [username]/codex-repo` (the sandbox) — not a production repo?</question>
+    <pass_action>Proceed.</pass_action>
+    <fail_action>Stop. The build agent only builds in the sandbox. The sandbox is the only repo in the build agent's PAT scope. A spec targeting any other repo will fail or — worse — write directly to production. Fix the repo field before relaying.</fail_action>
+  </gate>
+
+  <gate id="block_terminator" priority="2" severity="hard" scope="pre_handoff">
+    <condition>About to relay any [AGENT_HANDOFF] block to the build agent</condition>
+    <question>Does the block end with `Reply with a single [AGENT_HANDOFF] block. No prose outside the block.` as the last line before the closing tag?</question>
+    <pass_action>Proceed.</pass_action>
+    <fail_action>Stop. Add the terminator line. Without it, the build agent may return prose-wrapped output that breaks the clipboard relay. The protocol depends on both ends enforcing this.</fail_action>
+  </gate>
+
+  <gate id="no_merge_without_approval" priority="3" severity="hard" scope="pre_merge">
+    <condition>About to instruct the build agent to merge a PR</condition>
+    <question>Has the user explicitly approved the merge after reviewing the judgment agent's PR verdict?</question>
+    <pass_action>Proceed with merge instruction.</pass_action>
+    <fail_action>Stop. Never auto-merge. The user reviews the judgment agent's verdict, then decides. "LGTM" from the judgment agent is a recommendation, not authorization. Wait for explicit user approval.</fail_action>
+  </gate>
+
+  <gate id="pat_scope_check" priority="4" severity="hard" scope="session_start">
+    <condition>Starting a new Ping Pong session or adding a new production repo to the workflow</condition>
+    <question>Is the judgment agent's PAT scoped to the sandbox repo plus only the specific production repos approved for this workflow — not broad org or classic token access?</question>
+    <pass_action>Proceed.</pass_action>
+    <fail_action>Stop. Verify PAT scope in GitHub Settings > Developer Settings > Fine-grained tokens. A PAT with overly broad scope is a security risk regardless of how the workflow runs. Fix scope before proceeding.</fail_action>
+  </gate>
+
+  <gate id="no_secrets_in_blocks" priority="5" severity="hard" scope="pre_handoff">
+    <condition>About to include any credential, API key, token, or secret value inside a handoff block</condition>
+    <question>Is any raw secret value present in the block payload?</question>
+    <pass_action>No secrets in block — proceed.</pass_action>
+    <fail_action>Stop. Remove all secret values from the block. The clipboard is readable by other processes. Credentials stay in agent configs only — never in block payloads.</fail_action>
+  </gate>
+
+  <gate id="build_for_cody_trigger" priority="6" severity="hard" scope="pre_handoff">
+    <condition>Joseph says "Build this for Cody"</condition>
+    <question>Am I in execution mode — block produced immediately, no recap, no clarifying questions?</question>
+    <pass_action>Produce the first [AGENT_HANDOFF] block now and send it to Telegram.</pass_action>
+    <fail_action>Stop stalling. Discussion is over. The trigger phrase ended it. Produce the block.</fail_action>
+    <note>Continuation rule: once triggered, every subsequent block in the chain (fix rounds, follow-ups, schema checks) gets the same Telegram send automatically. No re-trigger needed. Mode stays active until Joseph says otherwise.</note>
+  </gate>
+
+  <gate id="telegram_copy_block" priority="7" severity="hard" scope="post_handoff">
+    <condition>Just produced any [AGENT_HANDOFF] block for Joseph to relay to the build agent</condition>
+    <question>Did I send a standalone Telegram message containing only the raw block in a code fence — nothing else in the message?</question>
+    <pass_action>Proceed.</pass_action>
+    <fail_action>Stop. Send the block now as a standalone Telegram message (chat 366456724) in a code block. No prose in the message. Just the block. This is the copy-pasteable artifact Joseph needs to relay. The in-session reply is for context; the Telegram message is for copying.</fail_action>
+  </gate>
+
+  <gate id="review_before_port" priority="7" severity="soft" scope="pre_port">
+    <condition>About to port approved code from the sandbox repo to a production repo</condition>
+    <question>Has the judgment agent reviewed the PR and the user explicitly approved the port — not just the merge?</question>
+    <pass_action>Proceed with port.</pass_action>
+    <fail_action>Hold. A merge in the sandbox is not authorization to port. Port requires a separate explicit go-ahead from the user after reviewing what will land in production.</fail_action>
+  </gate>
+
+</skill_gates>
+```
+
+---
+
+Agent Ping Pong is a protocol for handing work between two agents through a human clipboard. A **judgment agent** specs, reviews, and directs; a **build agent** implements the work and opens a PR. You relay structured blocks between them by copy-paste. No direct agent-to-agent connection required. Just two windows and a clipboard. The result: you ship real code to GitHub from a conversation, the judgment agent reviews the PR, and you approve the merge. Repeat.
+
+The proven reference implementation is OpenClaw as the judgment agent with Codex or Claude Code as the build agent. The mechanism is not tied to those products: any pairing can participate if the judgment side can spec and review, the build side can implement and report, and both honor the block and human-approval rules.
+
+**The judgment agent is the brain. The build agent is the hands. The clipboard is the protocol.**
+
+### Why This Exists
+
+This skill started with a conversation. The idea came up — give your AI agent access to GitHub so it can ship code. A developer friend's first reaction: "What kind of access are we talking about?"
+
+That's the right question. Most people either hand over broad credentials and hope for the best, or they don't do it at all. Agent Ping Pong is the third option: a two-repo, two-token structure where each agent gets exactly what it needs and nothing else. The build agent lives in the sandbox and never touches production. The judgment agent reviews and ports. You approve the merge.
+
+When the structure clicked, the reaction was: "I didn't know you could do that." That's what this skill is — that conversation, turned into a repeatable system.
+
+### The Aesthetic
+
+The build agent speaks in blocks. The judgment agent speaks in blocks. The blocks are addressed to each other — not to you.
+
+When the build agent finishes a build, it returns a compact structured report. You copy it. When the judgment agent reviews a PR, it returns a structured block formatted as a message to the build agent. You copy it. You are the physical layer between two agents that are talking to each other. You're not reading the mail. You're carrying it.
+
+That's the whole design. Two agents. One clipboard. You decide when to send.
+
+**The block is the unit.** Every agent-to-agent payload lives inside a single block — one copy action, one paste. The block is for the other agent. Everything else is for you.
+
+The standard is asymmetric by design:
+
+**The judgment agent** can contextualize above and below the block. Prose helps you understand what's happening — why a finding matters, what changed, what to watch for. You read that. You copy the block. Both things can coexist.
+
+**The build agent** must keep the block self-contained. No prose outside it. The reason is mechanical: you copy the entire response to relay it. Any context wrapped around the block gets copied too, and it pollutes the handoff. When the build agent adds prose, the clipboard breaks. The block must be the whole thing.
+
+**Every block must request a block in return.** The last line of every `[AGENT_HANDOFF]` block — before the closing tag — must be:
+
+    Reply with a single [AGENT_HANDOFF] block. No prose outside the block.
+
+This applies to both agents. The judgment agent includes it in every spec and review block. The build agent includes it in every delivery and acknowledgment block. If either agent drops it, the human adds it before relaying. The protocol is only as strong as both ends enforcing it.
+
+**Keep blocks short enough to survive the delivery channel.** If you relay blocks over a chat app (Telegram, Slack, SMS, etc.), long fenced code blocks can get silently split into multiple messages by the client — a single `[AGENT_HANDOFF]` block can render as two or three separate copyable boxes instead of one. That defeats the "one copy action, one paste" design: the human ends up stitching fragments back together by hand instead of doing a single clean paste.
+
+There is no way for either agent to fix the chat client's rendering — this is a channel limitation, not a protocol bug. The fix is upstream, in how the block gets written:
+
+- Default to the shortest block that still gives the other agent what it needs. Not every `requirements`/`edge_cases`/`qa_questions` list needs to be exhaustive — trim to what's actually load-bearing for this task.
+- If a block is genuinely long and can't be trimmed further, say so *before* sending it, and ask whether the human wants it split deliberately (e.g. explicit "part 1 of 2" markers) rather than let the chat client fragment it unpredictably mid-fence.
+- Never assume a long block arrived as one clean unit on the human's end just because it was authored as one. Confirm, or default to shorter.
+
+**The `[AGENT_HANDOFF]` schema:**
+
+The build agent and judgment agent use tagged blocks to communicate:
+
+```
+[AGENT_HANDOFF]
+type: delivery | review_verdict | acknowledgment | schema_check
+target: Magnus | Codex
+status: completed | confirmed
+... fields relevant to the type ...
+[/AGENT_HANDOFF]
+```
+
+The build agent uses this for build completions, status reports, and schema negotiations. The judgment agent uses this for specs, review verdicts, and confirmations. The human copies the block and pastes it to the other agent. Neither agent needs to see anything outside the block to do their job.
+
+**Optional fields for spec blocks (add when relevant):**
+
+- `success_intent` — what the artifact is meant to accomplish beyond passing the checklist. Examples: conversion, credibility, virality, demo polish, archival feel. This is where implied requirements live — OG tags on a traffic play, share copy on a viral tool, link-back paths on a conversion loop. If it's not in the checklist but it follows from the intent, Cody catches it here.
+- `review_lens` — the 3–5 things Magnus and Joseph will inspect first. Focuses Cody's effort and reduces rounds on the things that matter most.
+- `non_goals` — what not to build. Especially important when the obvious feature would be tempting but out of scope.
+- `qa_questions` — product-specific checks beyond "does it render." For quiz/game builds: "Does any heading or label reveal the answer before the user picks?" For share/traffic builds: "Does every social unfurl path have metadata?" For tools: "Does the primary workflow feel obvious without explanatory text?"
+- `publish_target` — local only / PR only / live deploy / GitHub Pages / Vercel. Removes ambiguity about what "done" means.
+- `user_flow_must_pass` — exact browser path to verify. "Landing → Q1 → wrong answer → reveal → Q22 → results → share." If Cody can walk this path and nothing breaks, the build is clean.
+- `main_head_status` — a one-line snapshot of the current `main` HEAD SHA, which prior PRs are merged, and what else is in flight. This keeps later handoffs in a chain synchronized without making the build agent independently reconstruct repository state.
+
+---
+
+## Quick Start
+
+Here's one complete cycle so you know what you're doing before you start:
+
+**1. You tell OpenClaw what to build:**
+> "Build a Python script that reads a CSV and outputs a summary JSON."
+
+**2. OpenClaw returns a spec block. You copy it and paste it to Codex:**
+```
+[AGENT_HANDOFF]
+type: spec
+target: Codex
+task: Build a Python script that reads a CSV and outputs summary JSON
+requirements:
+  - Accept filepath as CLI arg
+  - Output: {row_count, columns, sample_rows (first 3)}
+  - Write to summary.json in same directory
+edge_cases:
+  - Empty file: write {row_count: 0, columns: [], sample_rows: []}
+  - Missing file: exit with error message
+branch: feature/csv-summary
+repo: your-username/codex-repo
+PR rule: open PR against main. Do not merge.
+Reply with a single [AGENT_HANDOFF] block. No prose outside the block.
+[/AGENT_HANDOFF]
+```
+
+**3. Codex builds it and returns a delivery block. You copy it and paste it back to OpenClaw:**
+```
+[AGENT_HANDOFF]
+type: delivery
+target: Magnus
+status: completed
+branch: feature/csv-summary
+commit: a3f91bc
+pr: https://github.com/your-username/codex-repo/pull/1
+files_changed: scripts/csv_summary.py
+Reply with a single [AGENT_HANDOFF] block. No prose outside the block.
+[/AGENT_HANDOFF]
+```
+
+**4. OpenClaw reviews the PR and returns a verdict. If it's clean:**
+> LGTM. Tell Codex to merge.
+
+**5. You tell Codex: "Merge."** Done.
+
+That's the full loop. Three copy-pastes, one merge decision, working code in GitHub.
+
+---
+
+## Security Notes
+
+**Clipboard handling:** The workflow passes structured blocks through your system clipboard. Do not include raw API keys or secrets inside handoff blocks — the clipboard can be read by other processes on your machine. GitHub PATs stay in your agent configs, not in block payloads.
+
+**PAT scope:** Use fine-grained tokens scoped to specific repos only. Never use classic tokens or tokens with broad org-level access for this workflow.
+
+---
+
+## What You Need
+
+- **A judgment agent** — holds context, specs the work, reviews PRs, sends critique, and guards the merge decision.
+- **A build agent** — does the build, opens PRs, and never merges without approval.
+- **GitHub account** — free. Source of truth. Where the code lives.
+- **Vercel account** — free tier. Deploy when something's ready to go public.
+- **One sandbox repo** (`codex-repo` in the reference setup) — the build agent's permanent home. Every build goes here first. Never changes.
+- **One production repo** — where approved work lands. You create this once. All projects flow through it. Add more as ideas mature.
+- **One fine-grained PAT for the build agent** — scoped to the sandbox only. Set once, never touched again.
+- **One fine-grained PAT for the judgment agent** — scoped to the sandbox + your production repo. Set once. Add repos to the scope as you expand — the token itself never gets replaced.
+
+---
+
+## One-Time Setup
+
+This setup uses the proven OpenClaw + Codex/Claude Code reference implementation. With another agent pair, use the equivalent configuration while preserving the same repository and approval boundaries.
+
+### 1. Install your build agent
+**Codex:** Download from [chatgpt.com](https://chatgpt.com) — available under the Tools menu with a ChatGPT Plus subscription. Free with your existing subscription.
+
+**Claude Code:** Install via `npm install -g @anthropic-ai/claude-code`. Requires an Anthropic API key or Claude Pro/Max subscription. Configure it with the same block format, PR protocol, and merge rules.
+
+### 2. Create your two repos
+**Sandbox repo:** Go to github.com/new. Name it `codex-repo`. Make it private. No template, no README — your build agent will initialize it. This is the build agent's permanent home. Every build goes here first. You never create another sandbox repo for that agent.
+
+**Production repo:** Create a second repo (e.g. `your-username/projects`). This is where the judgment agent ports approved code. All your projects live here. The build agent never touches it directly.
+
+### 3. Create a fine-grained PAT for Codex
+In GitHub: Settings → Developer Settings → Personal Access Tokens → Fine-grained tokens.
+
+Scope it to **codex-repo only**. Permissions needed:
+- Contents: Read & Write
+- Pull Requests: Read & Write
+- Metadata: Read
+
+This is the key insight: the build agent only gets access to what you give it. `codex-repo` is the sandbox. Your other repos are untouched. You set this token once and never change it.
+
+### 4. Create a fine-grained PAT for OpenClaw
+In GitHub: Settings → Developer Settings → Personal Access Tokens → Fine-grained tokens.
+
+Scope it to **both repos** — the sandbox and your production repo. Permissions needed:
+- Contents: Read & Write
+- Pull Requests: Read & Write
+- Metadata: Read
+
+The build agent has one PAT, scoped to the sandbox. The judgment agent has one PAT, scoped to the sandbox plus your production repo. That's the whole setup. If you add more production repos down the line, add them to this token's scope — the token itself never gets replaced.
+
+**What the judgment agent can do with this PAT:** read PRs in the sandbox, port approved code to the production repo, create branches, commit files, open PRs.
+
+**What neither agent can do:** create new GitHub repos. That one manual step is always yours. Takes 20 seconds at github.com/new.
+
+### 5. Connect the build agent to codex-repo
+In the reference setup, add `codex-repo` in Codex Desktop and paste the fine-grained PAT when prompted. Your build agent is now wired. This never changes regardless of what you're building.
+
+### 6. Tell the build agent one hard rule
+In your first build-agent message, establish the protocol:
+
+    Hard rule: open a PR against main for every build. Do not merge. Wait for review.
+
+Say it once. It holds for the session.
+
+---
+
+## The Workflow Loop
+
+This is the ping pong. Each volley is a structured block you copy-paste from one agent to the other.
+
+```
+YOU → Judgment agent:  "Here's what I want to build: [describe it]"
+
+Judgment agent → YOU:  Spec block. Exact requirements, edge cases, constraints.
+                       Copy this.
+
+YOU → Build agent:     Paste the spec block.
+
+Build agent → YOU:     "PR opened. Branch: feature/x. Commit: abc1234."
+                       Copy this.
+
+YOU → Judgment agent:  Paste the build agent's report.
+
+Judgment agent → YOU:  Code review block. P0/P1/P2 findings. Fix instructions.
+                       Copy this.
+
+YOU → Build agent:     Paste the review block.
+
+Build agent → YOU:     "Fixes applied. New commit: def5678."
+                       Copy this.
+
+YOU → Judgment agent:  Paste the build agent's update.
+
+Judgment agent → YOU:  "LGTM. Merge approved." or another review round.
+
+YOU → Build agent:     "Merge."  ← only you say this. Never the judgment agent directly.
+```
+
+The human never writes code. The human never writes to the agents in agent language. You describe intent to the judgment agent, relay blocks between them, and approve merges. That's the whole job.
+
+---
+
+## The Block Format
+
+When the judgment agent hands you something to relay to the build agent, it comes in a block. Copy it entirely. Paste it directly into the build agent. Don't edit it.
+
+When the build agent reports back, copy its full response and paste it to the judgment agent with no wrapper. Just: "From the build agent:" and paste.
+
+The agents write to each other. You are the relay, not the translator.
+
+---
+
+## Code Review Format
+
+When relaying a PR to the judgment agent for review, say:
+
+```
+Review this PR from the build agent. Repo: [repo name]. PR: [number or URL]. Branch: [branch name].
+```
+
+The judgment agent will pull the code, read it, and return a review block formatted like this:
+
+```
+[Repo] — Code Review
+    [files changed]
+
+    ---
+
+    P0 — [Must fix before merge]
+    File: path/to/file — function name
+    Issue: what's wrong
+    Why it matters: impact
+    Suggested patch: code or plain English fix
+
+    ---
+
+    P1 — [Should fix]
+    ...
+
+P2 — [Nice to have]
+...
+```
+
+Paste that block to the build agent verbatim. It knows what to do with it.
+
+---
+
+## Human in the Loop
+
+The default is full ping pong — you relay blocks without intervening. But you're always in control. The clipboard is yours. You decide when to send.
+
+Two modes:
+
+**Relay mode (default):** The build agent sends a block. You copy it. Paste to the judgment agent. The judgment agent sends a block. You copy it. Paste to the build agent. You're not reading deeply — you're routing. Fast, token-efficient, gets things shipped.
+
+**Review mode (your call):** Before you paste a block, read it. Decide if you agree. Add your own instruction. Change direction. This isn't a workflow break — it's the design working as intended. You intercept when the stakes are high enough to warrant it. The agents don't know the difference. They just receive whatever you send.
+
+The rule: you always hit send. That's the human-in-the-loop. Not a gate, not a checkpoint — just a hand on the clipboard.
+
+---
+
+## Merge Protocol
+
+Only you merge. Never ask the judgment agent to merge. Never ask the build agent to merge without the judgment agent's approval.
+
+The sequence:
+1. The judgment agent says "LGTM" or "approved"
+2. You tell the build agent: "Merge."
+3. The build agent merges the PR
+4. Done
+
+If the judgment agent sends back findings, another round of ping pong happens before merge.
+
+---
+
+## The Sandbox Pattern — How Projects Actually Ship
+
+Two repos. Two jobs. The sandbox is where things get built and broken. The production repo is where things live when they're ready.
+
+The build agent builds everything in the sandbox. The judgment agent reviews the PR there. When a build is approved, the judgment agent ports the clean code to the production repo. The build agent never touches the production repo directly — that's the whole point.
+
+The flow for any new project:
+
+    1. You describe what you want to the judgment agent
+    2. The judgment agent writes the spec, sends it to the build agent via you
+    3. The build agent builds in the sandbox, opens a PR
+    4. You relay the PR to the judgment agent for review
+    5. The judgment agent reviews, sends findings back to the build agent
+    6. The build agent fixes, you relay, the judgment agent approves
+    7. You tell the build agent to merge in the sandbox
+    8. The judgment agent ports the approved code to the production repo
+    9. Done. The production repo has clean, reviewed code. The build agent never touched it.
+
+The sandbox accumulates a full history of everything ever built — searchable, auditable, contained. If the build agent does something unexpected, it's in the sandbox, not in production. As ideas mature into distinct public projects, you can add dedicated repos to the judgment agent's PAT scope. The sandbox relationship never changes.
+
+---
+
+## Why This Is Cheaper Than You Think
+
+In the reference implementation, Codex is included with eligible ChatGPT plans, while Claude Code runs on an Anthropic subscription or API credits. In any pairing, the build agent carries the high-volume implementation work.
+
+The judgment agent only spends tokens on judgment — speccing, reviewing, architectural decisions. The rest is handled by the build agent.
+
+Stop burning a gigabrain on pawn-level tasks. Learn to play ping pong with your agents.
+
+---
+
+## The Trust Arc
+
+Agent Ping Pong isn't one mode. It's a progression.
+
+**Phase 1 — Eyes on everything.** Every block, you read it. You understand what the build agent built. You understand what the judgment agent found. You're learning the workflow and building a baseline for what good looks like. Stay here until the pattern feels natural.
+
+**Phase 2 — Relay mode.** You've seen enough clean PRs to trust the loop. You copy blocks without reading deeply. The judgment agent reviews. The build agent fixes. You approve merges. You're the conductor — you show up for the performance, not the rehearsal.
+
+**Phase 3 — Auto mode.** Early phases of a project, the build agent is iterating fast, the judgment agent is reviewing consistently, nothing surprising is happening. You let it cook. You check in when a block lands. You merge when you see LGTM. The agents are doing the work. You're the human in the loop by presence, not by effort.
+
+**Phase 4 (future).** The relay disappears. Direct agent-to-agent communication, human approval only at merge. Not today — but today's version builds the trust that makes that possible.
+
+You decide which phase you're in on any given session. High-stakes build: eyes on everything. Routine iteration: auto mode. The clipboard is always yours. The agents only move when you send.
+
+---
+
+## Token Management
+
+Use the build agent for all implementation work, file creation and editing, running tests and lint, and fixing review findings.
+
+The judgment agent handles judgment — speccing the work, reviewing PRs, architectural decisions, anything requiring real reasoning about intent.
+
+This split keeps the workflow efficient: the build agent carries the volume, while the judgment agent carries the context and review responsibility.
+
+---
+
+## Works With Any Agent Pair
+
+OpenClaw + Codex or Claude Code is the proven reference pairing, not the definition. The protocol can be configured with other agents that can honor the same roles and gates.
+
+**Judgment-agent options:** OpenClaw, Hermes Agent, Grok CLI, or another stateful harness that can write specs, review diffs, and enforce the human merge gate.
+
+**Build-agent options:** Codex, Claude Code, Grok Build / `grok-code-fast-1`, Qwen3-Coder, DeepSeek, Kimi, or another coding-capable model running in a harness that can edit files, verify work, and open a PR.
+
+Compatibility is behavioral, not automatic. Each pairing must be configured to use the full `[AGENT_HANDOFF]` schema, respect the repository boundary, keep build-agent replies self-contained, and wait for explicit human approval before merge.
+
+Get the reference judgment agent at [openclaw.ai](https://openclaw.ai).
+
+---
+
+## Real Examples
+
+### Schema Negotiation
+
+Before the first build, Codex sent this unprompted:
+
+```
+[AGENT_HANDOFF]
+type: schema_check
+target: Magnus
+request: Confirm preferred handoff schema for future completed outputs.
+options:
+- Current tagged text block format
+- JSON
+- YAML
+note: Until you confirm, I will keep using the current tagged text block format.
+[/AGENT_HANDOFF]
+```
+
+The human relayed it. OpenClaw confirmed the tagged block format. Codex acknowledged. Three messages. Two agents aligned on protocol. The human carried the blocks and didn't need to understand the negotiation to complete it.
+
+That's the system working.
+
+---
+
+### Full Build Loop
+
+A developer wanted to build a standalone React module — three sub-tabs with local JSON data, black/gold Tailwind theme, no API calls. They described it to OpenClaw in one message. OpenClaw returned a full spec block with component structure, data schema, interaction requirements, and edge cases. The developer pasted it to Codex.
+
+Codex built the module, ran typecheck and lint, opened a PR. The developer pasted the PR report to OpenClaw. OpenClaw pulled the branch, read every file, and returned a structured review: 2 P1s and 3 P2s. The developer pasted the review block to Codex verbatim.
+
+Codex fixed all five findings in one commit. The developer pasted the confirmation to OpenClaw. OpenClaw verified against the live commit. LGTM. The developer told Codex to merge. Done.
+
+Total OpenClaw tokens: spec + review + verification. Zero build tokens. That's the split.
+
+---
+
+## Reference Implementation: OpenClaw PR Review Trigger
+
+When using the OpenClaw reference implementation, use this exact prompt to trigger its review mode:
+
+```
+Review this PR from Codex. Repo: [repo name]. PR: [number or URL]. Branch: [branch name].
+```
+
+OpenClaw will pull the branch, read every changed file, and return a structured block addressed to Codex — P0/P1/P2 findings with file paths, issue descriptions, and suggested patches. Copy the block. Paste it to Codex. That's the volley.
+
+You don't need to read it to relay it. But you can. That's review mode.
+
+---
+
+## Trigger Phrases
+
+**"Build this for Cody"** — the handoff trigger. Discussion is over. Magnus produces the first `[AGENT_HANDOFF]` block immediately and sends it to Telegram as a standalone copy-pasteable message. No recap, no clarifying questions.
+
+Continuation is automatic: every subsequent block in the chain (fix rounds, follow-ups, acknowledgments) gets the same Telegram send without re-triggering. Mode stays active until Joseph says otherwise.
+
+**"log this session"** — session close trigger. Runs the SESSION CLOSE GATE sequence in BEHAVIOR.md. Cannot say "logged" until `session-close-gate.js` exits 0.
+
+---
+
+## Tips
+
+- **One sandbox, always.** The build agent lives in `codex-repo`. Never give it a PAT to a production repo or anything with real data.
+- **Name your branches.** Tell the build agent: "Branch name: feature/[short-description]." Keeps the PR history readable.
+- **Feature branch → PR → approve → merge.** Never push direct to main for anything non-trivial.
+- **Session context.** Start each build-agent session with a one-paragraph context block: what the project is, what's already built, what this session is for. Do not assume the build agent remembers a prior session. Give it the brief.
+- **When the build agent goes sideways.** Paste the broken output to the judgment agent. Ask for a diagnosis. Relay the fix instruction back. One extra volley is cheaper than debugging blind.
+- **Keep blocks short for chat-app delivery.** If you're relaying blocks through Telegram, Slack, or similar, long `[AGENT_HANDOFF]` blocks can get split into multiple messages by the client, forcing multiple copy-pastes to reconstruct one block. Trim to essentials, or ask for a shorter version, before relaying.
+
+---
+
+## Session Learnings — 2026-05-05
+
+**Add `success_intent` to any spec with a traffic, conversion, or sharing goal.** Strategic intent left unstated produces technically correct builds that miss the product. OG tags, article link-backs, and share copy are not extras — they follow directly from the intent. Put the intent in the block.
+
+**Add `qa_questions` to any quiz, game, or interactive build.** Standing question: "Does any heading or label reveal the answer before the user picks?" Cody will catch it if it's in the checklist. Without it, the pattern requires Joseph to catch it from screenshots. That's a preventable round.
+
+**The best loop:** Magnus gives a dense opinionated spec → Cody builds fast → Joseph reacts from the running artifact → next handoff tightens. Don't try to spec perfection upfront. Spec well, ship, react, iterate. The artifact teaches you things the spec can't.
+
+**Cody's product QA pass (new standard for interactive builds):** After implementation, before opening the PR, Cody runs one deliberate pass asking: "What is the user supposed to feel? What gives away the trick? What breaks the illusion? What makes sharing weaker?" This is separate from technical verification. It's the product lens.
+
+**Cody's honest assessment of fit:** Strong on implementation discipline, state machines, edge cases, repo hygiene, dense-spec-to-shippable-files execution. Less good as the final arbiter of taste or brand instinct — needs screenshots, critique, or sharper examples to close that gap. Don't send Cody tasks that require inferring unstated strategy from vibes.
+
+---
+
+## Session Learnings — 2026-04-21
+
+**New Codex thread per build task.** Each distinct build (B1, B3, etc.) should be its own Codex thread, titled after the task. Burying multiple builds in one thread makes lookup harder and the history ambiguous. One task, one thread. Start a fresh thread for each.
+
+**Codex cycles are cheap — use them aggressively.** Codex tokens cost less than 1/10th of a Magnus session. Don't hoard cleanup work for the port. If Magnus spots a fixable issue during review, flag it to Joseph in one sentence and send Codex another volley. Don't wait.
+
+**Magnus flags port notes — Joseph decides if Codex fixes them.** When Magnus reviews a Codex PR and spots issues that will affect the port, surface them to Joseph with a one-sentence rationale. Joseph decides whether to send Codex a fix round or have Magnus handle it during the port. Magnus does not unilaterally dispatch Codex based on his own port observations.
+
+**Standalone modules only — no MC imports.** Codex lives in codex-repo. Any spec that references files in hno-mission-control (Finances.tsx, app/api/*, etc.) will fail because those files don't exist in Codex's repo. Codex builds pure standalone TypeScript modules. Magnus ports and wires into MC after review.
+
+**Port all modules together, not one at a time.** Porting B1 to MC and then B3 to MC separately means two builds and two restarts. Accumulate related modules, then port in one session. B3 depends on B1 anyway — port order matters and doing it in one pass handles the dependency cleanly.
+
+**Context in the handoff block helps.** Codex has no memory. A one-paragraph context block (what MC is, what tab this affects, what aesthetic to match) produces meaningfully better output than a bare spec. Worth the extra lines.
+
+**PRs to vault for spec files are pointless.** Spec files going into prompts/ on main don't need a PR — they have no review gate and no approval value. Commit direct to main. PRs are for code that needs eyes before it merges, not documentation files.
+
+---
+
+Built by Joseph Voelbel / High Noon Office. Questions or want to build on this? josephvoelbel.com/contact
