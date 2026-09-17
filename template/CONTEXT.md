@@ -15,7 +15,7 @@
 
 # Hard Rules
 - Open a PR against main for every build. Do not merge. Wait for review.
-- 
+- Unapproved code must not land on the default branch.
 
 # Branch Naming Convention
 feature/[short-description]

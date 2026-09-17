@@ -2,72 +2,72 @@
 
 **A protocol for handing work between two agents through a human clipboard — spec, build, review, merge-gate.**
 
-One agent does judgment: it specs the task, reviews the result, and holds the merge gate. The other agent does volume: it builds, opens a PR, and waits. A human relays structured blocks between them by copy-paste. No direct agent-to-agent connection required — just two windows and a clipboard.
+One agent does **Judgment**: it specs the task, reviews the result, and recommends merge. The other does **Build**: it implements, opens a PR, and waits. A human relays structured `[AGENT_HANDOFF]` blocks by copy-paste and is the **sole merge authority**. No direct agent-to-agent connection required — two windows and a clipboard.
 
-The result: you ship real, reviewed code to GitHub from a conversation — with any orchestrator and any builder that can speak the block format.
-
-**Reference implementation:** OpenClaw as the judgment agent, Codex or Claude Code as the build agent. That's the pairing this repo was built and proven on daily. But nothing about the protocol is OpenClaw-specific or Codex-specific — see [Works With Any Agent Pair](#works-with-any-agent-pair) below.
+**v3.0** is vendor-neutral. OpenClaw + Codex/Claude Code remains a worked reference setup in [SKILL.md](./SKILL.md), not the definition of the protocol.
 
 ---
 
 ## How It Works
 
 ```
-YOU → Judgment agent:  describe what you want to build
-Judgment agent → YOU:  spec block — copy this
-YOU → Build agent:     paste the spec
-Build agent → YOU:     PR opened — copy this
-YOU → Judgment agent:  paste the build agent's report
-Judgment agent → YOU:  code review block — copy this
-YOU → Build agent:     paste the review
-Build agent → YOU:     fixes applied — copy this
-YOU → Judgment agent:  paste the update
-Judgment agent → YOU:  LGTM. Merge approved.
-YOU → Build agent:     Merge.
+YOU → Judgment:   describe what you want
+Judgment → YOU:   full spec block — copy this
+YOU → Builder:    paste the spec
+Builder → YOU:    delivery (PR) — copy this
+YOU → Judgment:   paste the delivery
+Judgment → YOU:   short review stamp — copy this
+YOU → Builder:    paste the review
+Builder → YOU:    fixes (if any) — copy this
+YOU → Judgment:   paste the update
+Judgment → YOU:   verdict: go
+YOU → Builder:    Merge.
 ```
 
-The agents write to each other. You are the relay, not the translator. The judgment agent directs and reviews the work. The build agent never merges without explicit human approval.
+You are the relay, not the translator. LGTM ≠ merge.
+
+---
+
+## Two Block Shapes
+
+Same wrapper. Different field weight:
+
+- **Full** — `spec` / `delivery` / `decision` / `diagnostic` (goal, done-when, scope, constraints, verification, …)
+- **Short** — `review` / `ack` / `status` (verdict + thread; optional PR/note)
+
+Guidance, not a linter. Details and type map: [SKILL.md](./SKILL.md).
+
+---
+
+## Default Repo Pattern
+
+Builder opens a **PR on the target repo**. Judgment reviews. **Human merges.**
+
+A separate sandbox repo is optional (legacy OpenClaw+Codex port flow) — see Reference setups in SKILL.md.
 
 ---
 
 ## Works With Any Agent Pair
 
-The protocol has exactly two structural requirements:
+1. A Judgment agent that can spec, review a diff, and stop at the human merge gate.
+2. A Builder agent that can accept a block, work in-repo, open a PR, and return a clean block without prose wrapping the fence.
 
-1. **A judgment agent** that can hold context, produce a spec block, review a diff, and gate the merge decision.
-2. **A build agent** that can accept a spec block, do the work, and return a structured report — without wrapping it in prose that breaks the copy-paste.
-
-That's it. Nothing in the `[AGENT_HANDOFF]` schema references any specific vendor.
-
-**Judgment-agent options:**
-- **OpenClaw** — the reference implementation for this repo
-- **Hermes Agent** (Nous Research) — an open-source, provider-agnostic agent harness that can take the judgment role
-- **Grok CLI** — a CLI-based Grok harness that can take the judgment role when configured with the protocol
-- Any harness that can hold a conversation, write a structured block, and refuse to merge without your say-so
-
-**Build-agent options:**
-- **Codex** (OpenAI) and **Claude Code** (Anthropic) — the two build agents this repo was built and tested against
-- **Grok Build / `grok-code-fast-1`** (xAI) — xAI's terminal coding agent and coding model
-- **Qwen3-Coder**, **DeepSeek**, and **Kimi** — coding-capable model families that can fill the build role through an agent harness
-
-The protocol does not claim identical behavior across these tools. Each pairing still needs a harness that can honor the block format, work inside the intended repository boundary, and stop at the human merge gate.
-
-If your two agents can each hold up their end — write a block, keep it self-contained, wait for the human to hit send — this protocol works regardless of which lab built either one.
+`from` / `to` are roster names — not hard-coded vendors.
 
 ---
 
 ## What You Need
 
-- A judgment agent — [OpenClaw](https://openclaw.ai), Hermes Agent, or any orchestrator that can spec, review, and gate
-- A build agent — [Codex](https://openai.com/codex), Claude Code, Grok Build, or any agent that can accept a spec and open a PR
-- GitHub account — free
-- Vercel account — free tier, for when you're ready to deploy
+- Judgment agent (any orchestrator that can hold the bar)
+- Builder agent (any coding agent that can open PRs)
+- GitHub
+- This skill's block format ([SKILL.md](./SKILL.md))
 
 ---
 
 ## Get Started
 
-Read [SKILL.md](./SKILL.md) for the full protocol spec, setup guide, workflow loop, review format, and tips.
+Read [SKILL.md](./SKILL.md) for gates, short/full shapes, merge protocol, and reference setups.
 
 ---
 
